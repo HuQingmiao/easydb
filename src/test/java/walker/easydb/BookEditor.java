@@ -1,11 +1,11 @@
-package test;
+package walker.easydb;
 
 import walker.easydb.dao.BaseEntity;
 import walker.easydb.datatype.ELong;
 
 
 /**
- * BOOK_EDITORÊµÌå
+ * BOOK_EDITORÊµï¿½ï¿½
  * 
  * @author  HuQingmiao
  *

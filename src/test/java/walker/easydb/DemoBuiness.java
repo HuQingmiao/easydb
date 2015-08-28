@@ -1,4 +1,4 @@
-package test;
+package walker.easydb;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,7 +40,7 @@ public class DemoBuiness {
 
 
 	/**
-	 * Çå¿Õ²âÊÔÊý¾Ý£¬ÒÔ±¸²âÊÔ
+	 * ï¿½ï¿½Õ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * 
 	 * @throws Exception
@@ -48,8 +48,8 @@ public class DemoBuiness {
 	public void clearTestData() throws Exception {
 	    log.info("\nclearTestData()>>>>>>>>>>>>>>>>>>>>");
 
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 
 		try {				    
 			dao.deleteAll(Book.class);
@@ -58,19 +58,19 @@ public class DemoBuiness {
 
 			dao.deleteAll(BookEditor.class);
 
-			// ¿ª·Å´Ë´úÂë, ÊÔÍ¼É¾³ýÒ»¸ö²»´æÔÚµÄ±í, ½«Å×³öÒì³£ÇÒÕû¸öÊÂÎñ½«»Ø¹ö
+			// ï¿½ï¿½ï¿½Å´Ë´ï¿½ï¿½ï¿½, ï¿½ï¿½Í¼É¾ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ±ï¿½, ï¿½ï¿½ï¿½×³ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ½«»Ø¹ï¿½
 			// dao.deleteAll(Boek.class);
 
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 	/**
-	 * Ôö¼ÓÒ»±¾Êé;
+	 * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½;
 	 * 
 	 * @throws Exception
 	 */
@@ -80,7 +80,7 @@ public class DemoBuiness {
 	    
 	    
 		 StringBuilder sb = new StringBuilder();
-		 String s = "ÎÒÃÇ";
+		 String s = "ï¿½ï¿½ï¿½ï¿½";
 		 for (int i = 0; i < 500; i++) {
 		 sb.append(s);
 		 }
@@ -89,8 +89,8 @@ public class DemoBuiness {
 		 
 		 System.out.println(sb.toString().getBytes().length);
 	    
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 			Book book = new Book();
 			book = new Book();
@@ -98,13 +98,13 @@ public class DemoBuiness {
 			book.setTitle(new EString(sb.toString()));
 			book.setCost(new EFloat(30.0f));
 			book.setPublishTime(new ETimestamp(DateTimeUtil.getCurrentTime()));
-			// ¿ª·Å´Ë´úÂë, ÊÔÍ¼°ÑÒ»¸ö²»´æÔÚµÄÎÄ¼þÐ´ÈëÊý¾Ý¿â, ½«Å×³öÒì³£
-			book.setTextContent(new ETxtFile("d:\\Èý¹úÑÝÒå.txt"));
+			// ï¿½ï¿½ï¿½Å´Ë´ï¿½ï¿½ï¿½, ï¿½ï¿½Í¼ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½Ä¼ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½, ï¿½ï¿½ï¿½×³ï¿½ï¿½ì³£
+			book.setTextContent(new ETxtFile("d:\\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.txt"));
 
-			// ¿ª·Å´Ë´úÂë, ÊÔÍ¼Ïò²»´æÔÚÓë´ËÊôÐÔ¶ÔÓ¦µÄÁÐÐ´Êý¾Ý, EasyDB»á¶ÔÆäºöÂÔ
+			// ï¿½ï¿½ï¿½Å´Ë´ï¿½ï¿½ï¿½, ï¿½ï¿½Í¼ï¿½ò²»´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½, EasyDBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			//book.setANotExistCol(new EString("asdff"));
 
-			dao.save(book); // ³Ö¾Ã»¯ÊµÌå
+			dao.save(book); // ï¿½Ö¾Ã»ï¿½Êµï¿½ï¿½
 			
 			
 			//book.setCost(new EFloat(40.0f));
@@ -113,22 +113,22 @@ public class DemoBuiness {
 			//book.setCost(new EFloat(80.0f));
 			//dao.save(book);
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 	/**
-	 * ÅúÁ¿Ôö¼Ó¶à±¾Êé;
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶à±¾ï¿½ï¿½;
 	 * 
 	 * @throws Exception
 	 */
 	public void addMultiBooks() throws Exception {
 	    log.info("\naddMultiBooks()>>>>>>>>>>>>>>>>>>>>");
 	    
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 
 			int size = 4;
@@ -136,37 +136,37 @@ public class DemoBuiness {
 
 			BookArray[0] = new Book();
 			BookArray[0].setBookId(new ELong(101));
-			BookArray[0].setTitle(new EString("UNIX-ÉÏ²á"));
+			BookArray[0].setTitle(new EString("UNIX-ï¿½Ï²ï¿½"));
 			BookArray[0].setCost(new EFloat(100.0f));
 
-			// ¿ª·Å´Ë´úÂë£¬½«Å×³öÒì³££ºÅúÁ¿²Ù×÷Ê±£¬²»ÔÊÐí¶Ô´ó×Ö¶ÎÁÐ½øÐÐÅúÁ¿Ð´Èë
+			// ï¿½ï¿½ï¿½Å´Ë´ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½×³ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½Ö¶ï¿½ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½
 			// BookArray[0].setBlobContent(new EBinFile("d:\\unix.chm"));
 
 			BookArray[1] = new Book();
 			BookArray[1].setBookId(new ELong(105));
-			BookArray[1].setTitle(new EString("UNIX-ÖÐ²á"));
+			BookArray[1].setTitle(new EString("UNIX-ï¿½Ð²ï¿½"));
 
-			// ÆÁ±Î´Ë´úÂë£¬½«Å×³öÒì³££º²ÎÊýEntityÊý×éÖÐÁÐÖµ´æ·ÅÎ»ÖÃ±ØÐëÒ»ÖÂ£¡
+			// ï¿½ï¿½ï¿½Î´Ë´ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½×³ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Entityï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Î»ï¿½Ã±ï¿½ï¿½ï¿½Ò»ï¿½Â£ï¿½
 			BookArray[1].setCost(new EFloat(52.0f));
 
 			BookArray[2] = new Book();
 			BookArray[2].setBookId(new ELong(103));
-			BookArray[2].setTitle(new EString("UNIX-ÏÂ²á"));
+			BookArray[2].setTitle(new EString("UNIX-ï¿½Â²ï¿½"));
 			BookArray[2].setCost(new EFloat(35.0f));
 			
 			
 			
-			dao.save(BookArray); // ³Ö¾Ã»¯ÊµÌå
+			dao.save(BookArray); // ï¿½Ö¾Ã»ï¿½Êµï¿½ï¿½
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 	/**
-	 * ¸üÐÂÖ¸¶¨Ö÷¼üËù±íÊ¾µÄÄÇ±¾ÊéµÄÐÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * 
 	 * 
 	 * @throws Exception
@@ -174,41 +174,41 @@ public class DemoBuiness {
 	public void updateOneBook() throws Exception {
 	    log.info("\nupdateOneBook()>>>>>>>>>>>>>>>>>>>>");
 
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 		    
-			// ÉèÖÃÒª¸üÐÂµÄÏî:ÊéÃû,ÊéµÄ¶þ½øÖÆÄÚÈÝ,ÊéµÄÎÄ±¾ÄÚÈÝ
+			// ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½:ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½
 			Book newBookInfo = new Book();
-			newBookInfo.setTitle(new EString("Èý¹úÑÝÒå(µÚ¶þ°æ)"));
-			//newBookInfo.setTextContent(new ETxtFile("d:\\Èý¹úÑÝÒå.txt"));
+			newBookInfo.setTitle(new EString("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Ú¶ï¿½ï¿½ï¿½)"));
+			//newBookInfo.setTextContent(new ETxtFile("d:\\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.txt"));
 			//newBookInfo.setBlobContent(new EBinFile());
 				
-			// Èç¹ûÒª½«´ó×Ö¶ÎÁÐÖÃ¿Õ,Ôò..
-			// newBook.setBlobContent(new EBinFile());//ÒÔ¶þ½øÖÆ·½Ê½¸üÐÂÄÚÈÝ
-			// newBook.setTextContent(new ETxtFile());//ÒÔÎÄ±¾·½Ê½¸üÐÂÄÚÈÝ
+			// ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½,ï¿½ï¿½..
+			// newBook.setBlobContent(new EBinFile());//ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// newBook.setTextContent(new ETxtFile());//ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			
-			//±ØÐëÖ¸¶¨Ö÷¼ü, ËüÊÇ¸üÐÂµÄÒÀ¾Ý
+			//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½
 			newBookInfo.setBookId(new ELong(1));
 			dao.update(newBookInfo);
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 	
 	/**
-	 * ÏÈ´ÓÊý¾Ý¿â¼ìË÷Ò»ÅúÊé, ÔÙ¶ÔÕâÐ©ÊéµÄÐÅÏ¢½øÐÐÅúÁ¿¸üÐÂ
+	 * ï¿½È´ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½, ï¿½Ù¶ï¿½ï¿½ï¿½Ð©ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @throws Exception
 	 */
 	public void updateMulitBooks() throws Exception {
 	    log.info("\nupdateMulitBooks()>>>>>>>>>>>>>>>>>>>>");
 	    
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 			String sql = " select book_id,title,cost,publish_time from book ";
 
@@ -219,7 +219,7 @@ public class DemoBuiness {
 			for (int i = 0; i < list.size(); i++) {
 				Book b = (Book) list.get(i);
 				
-				//ÉèÖÃÐÂµÄ³ö°æÊ±¼äºÍ¼Û¸ñ
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Í¼Û¸ï¿½
 				b.setPublishTime(new ETimestamp(DateTimeUtil.parse("2008-01","yyyy-MM")));
 				b.setCost(new EFloat(b.getCost().floatValue()-10.0f));
 				books[i]=b;
@@ -227,54 +227,54 @@ public class DemoBuiness {
 
 			dao.update(books);	
 			
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 			
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 	
 
 	/**
-	 * Ö¸¶¨Ìõ¼þ, ¶Ô²¿·ÖÊé½øÐÐ¸üÐÂ
+	 * Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½
 	 * 
 	 * @throws Exception
 	 */
 	public void updateBookByCriteria() throws Exception {	    
 	    log.info("\nupdateBooksByCriteria()>>>>>>>>>>>>>>>>>>>>");
 
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
-			// ÉèÖÃÒª¸üÐÂµÄÏî:¼Û¸ñ,ÊéÃû,ÊéµÄ¶þ½øÖÆÄÚÈÝ,ÊéµÄÎÄ±¾ÄÚÈÝ
+			// ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½:ï¿½Û¸ï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½
 			Book newBookInfo = new Book();
-			newBookInfo.setCost(new EFloat("65.0"));// ¸üÐÂ¼Û¸ñ
-			newBookInfo.setTitle(new EString("ÓÀÔ¶µÄUNIX_ÉÏ²á(¸ßÈËÆª)"));
+			newBookInfo.setCost(new EFloat("65.0"));// ï¿½ï¿½ï¿½Â¼Û¸ï¿½
+			newBookInfo.setTitle(new EString("ï¿½ï¿½Ô¶ï¿½ï¿½UNIX_ï¿½Ï²ï¿½(ï¿½ï¿½ï¿½ï¿½Æª)"));
 
-			// ¿ª·Å´Ë´úÂë,½«²úÉúÒì³£:¶ÔBLOB/CLOBµÄÐ´Èë£¬Ã¿´ÎÖ»ÄÜ×÷ÓÃÔÚÓÃÖ÷¼üÖµ±êÊ¶µÄÎ¨Ò»¼ÇÂ¼ÉÏ£¡
+			// ï¿½ï¿½ï¿½Å´Ë´ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£:ï¿½ï¿½BLOB/CLOBï¿½ï¿½Ð´ï¿½ë£¬Ã¿ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ê¶ï¿½ï¿½Î¨Ò»ï¿½ï¿½Â¼ï¿½Ï£ï¿½
 			 //newBookInfo.setBlobContent(new EBinFile("d:\\unix.chm"));
 			// newBookInfo.setTextContent(new ETxtFile("d:\\unix.txt"));
 
-			// Èç¹ûÒª½«´ó×Ö¶ÎÁÐÖÃ¿Õ,Ôò..
-			// newBookInfo.setBlobContent(new EBinFile());//ÒÔ¶þ½øÖÆ·½Ê½¸üÐÂÄÚÈÝ
-			// newBookInfo.setTextContent(new ETxtFile());//ÒÔÎÄ±¾·½Ê½¸üÐÂÄÚÈÝ
+			// ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½,ï¿½ï¿½..
+			// newBookInfo.setBlobContent(new EBinFile());//ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// newBookInfo.setTextContent(new ETxtFile());//ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-			// ¶ÔÃû³ÆÒÔ"UNIX"¿ªÍ·µÄÇÒ¼Û¸ñ>=70.0ÔªµÄÊé½øÐÐ¸üÐÂ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"UNIX"ï¿½ï¿½Í·ï¿½ï¿½ï¿½Ò¼Û¸ï¿½>=70.0Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½
 			Criteria c1 = Exp.like("title", "UNIX%");
 			Criteria c2 = Exp.ge("cost",70);
 
 			dao.update(newBookInfo,Exp.and(c1,c2));
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 
 	
 	/**
-	 * É¾³ýÖ¸¶¨Ö÷¼üËù±íÊ¾µÄÄÇ±¾Êé
+	 * É¾ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½
 	 * 
 	 * 
 	 * @throws Exception
@@ -282,56 +282,56 @@ public class DemoBuiness {
 	public void deleteOneBook() throws Exception {
 	    log.info("\ndeleteOneBook()>>>>>>>>>>>>>>>>>>>>");
 
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 		    
 			Book book = new Book();
 			book.setBookId(new ELong(101));
 			
-			//ÏÈ´ÓÊý¾Ý¿âÔØÈë, ÔÙÉ¾³ý
+			//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½É¾ï¿½ï¿½
 			if(dao.loadByPK(book)){
 			    dao.delete(book);
 			}
 						
-			//»òÕßÖ¸¶¨Ö÷¼ü½øÐÐÉ¾³ý
+			//ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½
 //			Book book2 = new Book();
 //			book2.setBookId(new ELong(101));
 //			dao.delete(book2);
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 	
 	/**
-	 * ÏÈ´ÓÊý¾Ý¿â¼ìË÷Ò»ÅúÊé, ÔÙÉ¾³ýÕâÐ©Êé
+	 * ï¿½È´ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ð©ï¿½ï¿½
 	 * 
 	 * @throws Exception
 	 */
 	public void deleteMulitBooks() throws Exception {
 	    log.info("\ndeleteMulitBooks()>>>>>>>>>>>>>>>>>>>>");
 	    
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 			String sql = " select book_id,title,cost,publish_time from book where cost>20";
 			
 			@SuppressWarnings("rawtypes")
 			ArrayList list = dao.get(sql, Book.class);
 
-			//½«list×ªÎªÊý×éºóÉ¾³ý 
+			//ï¿½ï¿½list×ªÎªï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ 
 			@SuppressWarnings("unchecked")
 			Book[] books = (Book[])list.toArray(new Book[0]);
 			dao.delete(books);			
 			list.clear();
 			
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 			
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
@@ -339,43 +339,43 @@ public class DemoBuiness {
     public void deleteMulitBooks2() throws Exception {
         log.info("\ndeleteMulitBooks()>>>>>>>>>>>>>>>>>>>>");
         
-        dao.beginTrans(); // ·¢ÆðÊÂÎñ
-        boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+        dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
         try {
             
             Set<String> set = new HashSet<String>();
-            set.add("UNIX-ÉÏ²á");
-            set.add("UNIX-ÏÂ²á");
+            set.add("UNIX-ï¿½Ï²ï¿½");
+            set.add("UNIX-ï¿½Â²ï¿½");
             
 
             dao.delete(Book.class,Exp.in("title",set));          
             //list.clear();
             
-            commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+            commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
             
         } finally {
-            dao.endTrans(commit);// ½áÊøÊÂÎñ
+            dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
     }
 	
 	/**
-	 * Ö¸¶¨Ìõ¼þ, É¾³ýÒ»²¿·ÖÊé
+	 * Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, É¾ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @throws Exception
 	 */
 	public void deleteBookByCriteria() throws Exception {
 	    log.info("\ndeleteBookByCriteria()>>>>>>>>>>>>>>>>>>>>");
 
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 
-			Criteria c1 = Exp.like("title", "Èý¹ú%");
+			Criteria c1 = Exp.like("title", "ï¿½ï¿½ï¿½ï¿½%");
 			dao.delete(Book.class, c1);
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 	
@@ -387,7 +387,7 @@ public class DemoBuiness {
 	
 	
 	/**
-	 * ÒÔSQLµÄ·½Ê½¸üÐÂÊéµÄÐÅÏ¢
+	 * ï¿½ï¿½SQLï¿½Ä·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * 
 	 * 
 	 * @throws Exception
@@ -395,75 +395,75 @@ public class DemoBuiness {
 	public void executeSqlToUpdateBooks() throws Exception {
 	    log.info("\nexecuteSqlToUpdateBooks()>>>>>>>>>>>>>>>>>>>>");
 
-	    dao.beginTrans(); // ·¢ÆðÊÂÎñ
-        boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+	    dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
         try {
 
-            //Oracle°æ±¾ÊÊÓ¦
-            //String sql = " UPDATE BOOK SET TITLE = 'ÓÀÔ¶µÄ'||TITLE WHERE TITLE LIKE ? ";
+            //Oracleï¿½æ±¾ï¿½ï¿½Ó¦
+            //String sql = " UPDATE BOOK SET TITLE = 'ï¿½ï¿½Ô¶ï¿½ï¿½'||TITLE WHERE TITLE LIKE ? ";
 
-            //mySql°æ±¾ÊÊÓ¦
-            String sql = " UPDATE BOOK SET TITLE = CONCAT('ÓÀÔ¶µÄ',TITLE) WHERE TITLE LIKE ? ";
+            //mySqlï¿½æ±¾ï¿½ï¿½Ó¦
+            String sql = " UPDATE BOOK SET TITLE = CONCAT('ï¿½ï¿½Ô¶ï¿½ï¿½',TITLE) WHERE TITLE LIKE ? ";
 
             SqlParamMap pMap = new SqlParamMap();
             pMap.put(1, "UNIX%");
 
             dao.exec(sql, pMap);
-            commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+            commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 
         } finally {
-            dao.endTrans(commit);// ½áÊøÊÂÎñ
+            dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
     }
 
 	/**
-	 * ·Ö±ðÒÔÁ½ÖÖSQLµÄ·½Ê½Ìí¼ÓÁ½±¾Êé;
+	 * ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SQLï¿½Ä·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½;
 	 * 
 	 * @throws Exception
 	 */
 	public void executeSqlToAddBook() throws Exception {
 	    log.info("\nexecuteSqlToAddBook()>>>>>>>>>>>>>>>>>>>>");
 	    
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 
-			// ·½Ê½1£º¿ÉÖ´ÐÐSQL
+			// ï¿½ï¿½Ê½1ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½SQL
 //			String sql = " INSERT INTO BOOK (BOOK_ID,TITLE,COST,PUBLISH_TIME) "
-//			           + " VALUES (3, 'Â³±öÑ·Æ¯Á÷¼Ç', 20.0,TO_DATE('2007-01-10', 'yyyy-MM-dd')) ";
+//			           + " VALUES (3, 'Â³ï¿½ï¿½Ñ·Æ¯ï¿½ï¿½ï¿½ï¿½', 20.0,TO_DATE('2007-01-10', 'yyyy-MM-dd')) ";
 		    
 			String sql = " INSERT INTO BOOK (BOOK_ID,TITLE,COST) "
-	           + " VALUES (3, 'Â³±öÑ·Æ¯Á÷¼Ç', 20.0) ";
+	           + " VALUES (3, 'Â³ï¿½ï¿½Ñ·Æ¯ï¿½ï¿½ï¿½ï¿½', 20.0) ";
 			dao.exec(sql);
 
-			// ·½Ê½2£º²ÎÊý»¯SQL
+			// ï¿½ï¿½Ê½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SQL
 			sql = " INSERT INTO BOOK (BOOK_ID,TITLE,COST,PUBLISH_TIME) VALUES (?,?,?,?) ";
 			SqlParamMap pMap = new SqlParamMap();
 			pMap.put(1, "4");
-			pMap.put(2, "×Ê±¾ÂÛ");
+			pMap.put(2, "ï¿½Ê±ï¿½ï¿½ï¿½");
 			pMap.put(3, 22.0f);
 			pMap.put(4, DateTimeUtil.parse("2007-0-10", "yyyy-MM-dd"));
 
 			dao.exec(sql, pMap);
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 
 	}
 
 	/**
-	 * ÒÔSQLµÄ·½Ê½Ìí¼Ó¼¸Î»±àÕßÐÅÏ¢
+	 * ï¿½ï¿½SQLï¿½Ä·ï¿½Ê½ï¿½ï¿½Ó¼ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 * 
 	 * @throws Exception
 	 */
 	public void executeSqlToAddEditors() throws Exception {
 	    log.info("\nexecuteSqlToAddEditors()>>>>>>>>>>>>>>>>>>>>");
 
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 			String sql = " INSERT INTO EDITOR (EDITOR_ID,NAME,SEX) VALUES (?,?,?) ";
 
@@ -474,92 +474,92 @@ public class DemoBuiness {
 			pMapArray[0].put(k++, 1);
 			pMapArray[0].put(k++, "Richard Stevens");
 
-			// ÆÁ±Î´Ë´úÂë,½«Å×³öÒì³££ºÅúÁ¿²Ù×÷Ê±, Ä³×é²ÎÊýµÄÖµ±È'?'ÉÙ£¡
+			// ï¿½ï¿½ï¿½Î´Ë´ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½×³ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±, Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½'?'ï¿½Ù£ï¿½
 			pMapArray[0].put(k++, "M");
 
-			// ¿ª·Å´Ë´úÂë,½«Å×³öÒì³££ºÅúÁ¿²Ù×÷Ê±, Ä³×é²ÎÊýµÄÖµ±È'?'¶à£¡
+			// ï¿½ï¿½ï¿½Å´Ë´ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½×³ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±, Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½'?'ï¿½à£¡
 			//pMapArray[0].put(k++, "M");
 
 			k = 1;
 			pMapArray[1] = new SqlParamMap();
 			pMapArray[1].put(k++, 2);
-			pMapArray[1].put(k++, "Ò×ÖÐÌì");
+			pMapArray[1].put(k++, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			pMapArray[1].put(k++, "M");
 
 			k = 1;
 			pMapArray[2] = new SqlParamMap();
 			pMapArray[2].put(k++, 3);
-			pMapArray[2].put(k++, "ÂÞ¹áÖÐ");
+			pMapArray[2].put(k++, "ï¿½Þ¹ï¿½ï¿½ï¿½");
 			pMapArray[2].put(k++, "M");
 
 			k = 1;
 			pMapArray[3] = new SqlParamMap();
 			pMapArray[3].put(k++, 4);
-			pMapArray[3].put(k++, "µÑ¸£");
+			pMapArray[3].put(k++, "ï¿½Ñ¸ï¿½");
 			pMapArray[3].put(k++, "M");
 
 			dao.exec(sql, pMapArray);
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 	/**
-	 * ÒÔSQLµÄ·½Ê½Ìí¼Ó¼¸ÌõÊéÓë±àÕßµÄ¹ØÁªÐÅÏ¢;
+	 * ï¿½ï¿½SQLï¿½Ä·ï¿½Ê½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµÄ¹ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢;
 	 * 
 	 * @throws Exception
 	 */
 	public void executeSqlToAddBookEditor() throws Exception {
 	    log.info("\nexecuteSqlToAddBookEditor()>>>>>>>>>>>>>>>>>>>>");
 	    
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 			String sql = " INSERT INTO BOOK_EDITOR (EDITOR_ID,BOOK_ID) VALUES (?,?) ";
 
 			SqlParamMap[] pMapArray = new SqlParamMap[6];
 
-			// Richard Stevens -> ÓÀÔ¶µÄUNIX_ÉÏ²á
+			// Richard Stevens -> ï¿½ï¿½Ô¶ï¿½ï¿½UNIX_ï¿½Ï²ï¿½
 			pMapArray[0] = new SqlParamMap();
 			pMapArray[0].put(1, 1);
 			pMapArray[0].put(2, 101);
 
-			// Richard Stevens -> ÓÀÔ¶µÄUNIX_ÖÐ²á
+			// Richard Stevens -> ï¿½ï¿½Ô¶ï¿½ï¿½UNIX_ï¿½Ð²ï¿½
 			pMapArray[1] = new SqlParamMap();
 			pMapArray[1].put(1, 1);
 			pMapArray[1].put(2, 102);
 
-			// Richard Stevens -> ÓÀÔ¶µÄUNIX_ÏÂ²á
+			// Richard Stevens -> ï¿½ï¿½Ô¶ï¿½ï¿½UNIX_ï¿½Â²ï¿½
 			pMapArray[2] = new SqlParamMap();
 			pMapArray[2].put(1, 1);
 			pMapArray[2].put(2, 103);
 
-			// ÂÞ¹áÖÐ -> Èý¹úÑÝÒå
+			// ï¿½Þ¹ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			pMapArray[4] = new SqlParamMap();
 			pMapArray[4].put(1, 3);
-			// Çë×ÐÏ¸¹Û²ì£¬ÆÁ±Î´ËÐÐºóµÄÖ´ÐÐÐ§¹û£¬ Æä½á¹ûÓëJDBCµÄÐ§¹ûÒ»ÖÂ£¬ ¼´¼Ì³ÐÉÏ×é²ÎÊýÖµ
+			// ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½Û²ì£¬ï¿½ï¿½ï¿½Î´ï¿½ï¿½Ðºï¿½ï¿½Ö´ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½JDBCï¿½ï¿½Ð§ï¿½ï¿½Ò»ï¿½Â£ï¿½ ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 			pMapArray[4].put(2, 1);
 
-			// ÂÞ¹áÖÐ -> Èý¹úÑÝÒå
+			// ï¿½Þ¹ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			pMapArray[5] = new SqlParamMap();
 			pMapArray[5].put(1, 4);
-			// Çë×ÐÏ¸¹Û²ì£¬ÆÁ±Î´ËÐÐºóµÄÖ´ÐÐÐ§¹û£¬ Æä½á¹ûÓëJDBCµÄÐ§¹ûÒ»ÖÂ£¬ ¼´¼Ì³ÐÉÏ×é²ÎÊýÖµ
+			// ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½Û²ì£¬ï¿½ï¿½ï¿½Î´ï¿½ï¿½Ðºï¿½ï¿½Ö´ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½JDBCï¿½ï¿½Ð§ï¿½ï¿½Ò»ï¿½Â£ï¿½ ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 			pMapArray[5].put(2, 3);
 
 			dao.exec(sql, pMapArray);
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 
 
 	/**
-	 * ÑÝÊ¾Ç¶Ì×ÊÂÎñ
+	 * ï¿½ï¿½Ê¾Ç¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * 
 	 * @throws Exception
@@ -567,45 +567,45 @@ public class DemoBuiness {
 	public void nestedTransaction() throws Exception {
 	    log.info("\nnestedTransaction()>>>>>>>>>>>>>>>>>>>>");
 	    
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 
            
-			this.addOneBook();       //µÚÒ»¸ö×ÓÊÂÎñ
+			this.addOneBook();       //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			
-			//this.addMultiBooks();    //µÚ¶þ¸ö×ÓÊÂÎñ
+			//this.addMultiBooks();    //ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			
 			this.executeSqlToAddBook();
 			
 			this.executeSqlToUpdateBooks();
 			
-//			 //¿ª·Å´Ë´úÂë£¬Õû¸öÊÂÎñ°üÀ¨ËùÓÐ×ÓÊÂÎñ½«»Ø¹ö
+//			 //ï¿½ï¿½ï¿½Å´Ë´ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ½«»Ø¹ï¿½
 //			 if (true) {
 //			 	throw new Exception(">>>>>throwed by nestedTransaction() ");
 //			 }
 			
 			this.executeSqlToAddEditors();
 			
-			//this.executeSqlToAddBookEditor();//µÚÁù¸ö×ÓÊÂÎñ
+			//this.executeSqlToAddBookEditor();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 
 	/**
-	 * ÕÒ³öÄ³Î»×÷ÕßµÄ×ÊÁÏ¼°ÆäËù±àÐ´µÄÊé
+	 * ï¿½Ò³ï¿½Ä³Î»ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @throws Exception
 	 */
 	public void getEditorAndBook() throws Exception {
 	    log.info("\ngetEditorAndBook()>>>>>>>>>>>>>>>>>>>>");
 	    
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 			StringBuffer sql = new StringBuffer();
 			sql.append(" SELECT A.NAME EDITOR_NAME, A.SEX EDITOR_SEX, ");
@@ -619,19 +619,19 @@ public class DemoBuiness {
 			@SuppressWarnings("rawtypes")
 			ArrayList list = dao.get(sql.toString(), EditorAndBook.class);
 
-			// ´òÓ¡³ö²éÑ¯½á¹û
-			StringBuffer buff = new StringBuffer("²éÑ¯½á¹û: \n");
+			// ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½
+			StringBuffer buff = new StringBuffer("ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½: \n");
 			for (int i = 0; i < list.size(); i++) {
 				EditorAndBook editorBook = (EditorAndBook) list.get(i);
 
-				// Êä³ö×÷ÕßÐÕÃû¡¢ÐÔ±ð¡¢×÷Õß¡¢×÷ÕßËùÖøÊéµÄÊéÃû¡¢Êé¼Û¡¢ÊéµÄÄÚÈÝ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ß¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				buff.append(editorBook.getEditorName() + "\t");
 				buff.append(editorBook.getEditorSex() + "\t");
 				buff.append(editorBook.getTitle() + "\t");
 				buff.append(editorBook.getCost() + "\t");
 
-				// EasyDBÒÑ¾­´ÓÊý¾Ý¿â¶ÁÈ¡µ½ÊéµÄÄÚÈÝ£¬ ²¢ÒÔÎÄ¼þµÄÐÎÊ½´æ·ÅÔÚJAVAÁÙÊ±Ä¿
-				// Â¼(java.io.tmp), ÏÖÔÚ´òÓ¡³ö¸ÃÎÄ¼þµÄÈ«Â·¾¶¡£
+				// EasyDBï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½JAVAï¿½ï¿½Ê±Ä¿
+				// Â¼(java.io.tmp), ï¿½ï¿½ï¿½Ú´ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½È«Â·ï¿½ï¿½ï¿½ï¿½
 				buff.append(editorBook.getBlobContent() + "\t");
 				buff.append(editorBook.getTextContent() + "\t");
 
@@ -640,14 +640,14 @@ public class DemoBuiness {
 
 			log.info(buff.toString());
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //			throw new Exception(e.getMessage());
 
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 	
@@ -655,9 +655,9 @@ public class DemoBuiness {
 
 
 	/**
-	 * ·ÖÒ³²éÑ¯, ²é³öÃ¿2-3Ìõ¼ÇÂ¼
+	 * ï¿½ï¿½Ò³ï¿½ï¿½Ñ¯, ï¿½ï¿½ï¿½Ã¿2-3ï¿½ï¿½ï¿½ï¿½Â¼
 	 * 
-	 * ÕÒ³öÄ³Î»×÷ÕßµÄ×ÊÁÏ¼°ÆäËù±àÐ´µÄÊé Demostrates the method: exec(String pSql, ParameterMap[]
+	 * ï¿½Ò³ï¿½Ä³Î»ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ Demostrates the method: exec(String pSql, ParameterMap[]
 	 * paraMapArray).
 	 * 
 	 * @throws Exception
@@ -666,8 +666,8 @@ public class DemoBuiness {
 
 	    log.info("\ngetEditorAndBookByPager()>>>>>>>>>>>>>>>>>>>>");
 	    
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 			StringBuffer sql = new StringBuffer();
 			// sql.append(" SELECT * FROM (");
@@ -684,18 +684,18 @@ public class DemoBuiness {
 			ArrayList list = dao
 					.get(sql.toString(), EditorAndBook.class, 1, 15);
 
-			// ´òÓ¡³ö²éÑ¯½á¹û
-			StringBuffer buff = new StringBuffer("²éÑ¯½á¹û: \n");
+			// ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½
+			StringBuffer buff = new StringBuffer("ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½: \n");
 			for (int i = 0; i < list.size(); i++) {
 				EditorAndBook editorBook = (EditorAndBook) list.get(i);
 
-				// Êä³ö×÷ÕßÐÕÃû¡¢ÐÔ±ð¡¢×÷Õß¡¢×÷ÕßËùÖøÊéµÄÊéÃû¡¢Êé¼Û¡¢ÊéµÄÄÚÈÝ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ß¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				buff.append(editorBook.getEditorName() + "\t");
 				buff.append(editorBook.getEditorSex() + "\t");
 				buff.append(editorBook.getTitle() + "\t");
 				buff.append(editorBook.getCost() + "\t");
 
-				// EasyDBÒÑ¾­´ÓÊý¾Ý¿â¶ÁÈ¡µ½ÊéµÄÄÚÈÝ£¬ÏÖÔÚ´òÓ¡³ö¸ÃÎÄ¼þµÄÈ«Â·¾¶
+				// EasyDBï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½È«Â·ï¿½ï¿½
 				buff.append(editorBook.getBlobContent() + "\t");
 				buff.append(editorBook.getTextContent() + "\t");
 				
@@ -704,22 +704,22 @@ public class DemoBuiness {
 
 			log.info(buff.toString());
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //			throw new Exception(e.getMessage());
 
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 	
 	
 	/**
-	 * ·ÖÒ³²éÑ¯, ²é³öÃ¿2-3Ìõ¼ÇÂ¼
+	 * ï¿½ï¿½Ò³ï¿½ï¿½Ñ¯, ï¿½ï¿½ï¿½Ã¿2-3ï¿½ï¿½ï¿½ï¿½Â¼
 	 * 
-	 * ÕÒ³öÄ³Î»×÷ÕßµÄ×ÊÁÏ¼°ÆäËù±àÐ´µÄÊé Demostrates the method: exec(String pSql, ParameterMap[]
+	 * ï¿½Ò³ï¿½Ä³Î»ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ Demostrates the method: exec(String pSql, ParameterMap[]
 	 * paraMapArray).
 	 * 
 	 * @throws Exception
@@ -727,8 +727,8 @@ public class DemoBuiness {
 	public void getEditorAndBookByPager2() throws Exception {
 	    log.info("\ngetEditorAndBookByPager2()>>>>>>>>>>>>>>>>>>>>");
 	    
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		try {
 			StringBuffer sql = new StringBuffer();
 			// sql.append(" SELECT * FROM (");
@@ -748,18 +748,18 @@ public class DemoBuiness {
 			ArrayList list = dao.get(sql.toString(),map, EditorAndBook.class, 1, 4);
 
 
-			// ´òÓ¡³ö²éÑ¯½á¹û
-			StringBuffer buff = new StringBuffer("²éÑ¯½á¹û: \n");
+			// ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½
+			StringBuffer buff = new StringBuffer("ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½: \n");
 			for (int i = 0; i < list.size(); i++) {
 				EditorAndBook editorBook = (EditorAndBook) list.get(i);
 
-				// Êä³ö×÷ÕßÐÕÃû¡¢ÐÔ±ð¡¢×÷Õß¡¢×÷ÕßËùÖøÊéµÄÊéÃû¡¢Êé¼Û¡¢ÊéµÄÄÚÈÝ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ß¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				buff.append(editorBook.getEditorName() + "\t");
 				buff.append(editorBook.getEditorSex() + "\t");
 				buff.append(editorBook.getTitle() + "\t");
 				buff.append(editorBook.getCost() + "\t");
 
-				// EasyDBÒÑ¾­´ÓÊý¾Ý¿â¶ÁÈ¡µ½ÊéµÄÄÚÈÝ£¬ÏÖÔÚ´òÓ¡³ö¸ÃÎÄ¼þµÄÈ«Â·¾¶
+				// EasyDBï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½È«Â·ï¿½ï¿½
 				buff.append(editorBook.getBlobContent() + "\t");
 				buff.append(editorBook.getTextContent() + "\t");
 				
@@ -768,24 +768,24 @@ public class DemoBuiness {
 
 			log.info(buff.toString());
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}	
 	
 
 	/**
-	 * ²éÑ¯²¢Õ¹Ê¾ËùÓÐµÄÊé
+	 * ï¿½ï¿½Ñ¯ï¿½ï¿½Õ¹Ê¾ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½
 	 * 
 	 * @throws Exception
 	 */
 	public void showAllBooks() throws Exception {
 	    log.info("\nshowAllBooks()>>>>>>>>>>>>>>>>>>>>");
 	    
-		dao.beginTrans(); // ·¢ÆðÊÂÎñ
-		boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+		dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		
 		try {
 			//String sql = " update book set title='as' ";
@@ -793,8 +793,8 @@ public class DemoBuiness {
 			@SuppressWarnings("rawtypes")
 			ArrayList list = dao.get(sql, Book.class);
 
-			// ´òÓ¡³ö²éÑ¯½á¹û			
-			StringBuffer buff = new StringBuffer("²éÑ¯½á¹û: \n");
+			// ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½			
+			StringBuffer buff = new StringBuffer("ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½: \n");
 			for (int i = 0; i < list.size(); i++) {
 				Book b = (Book) list.get(i);
 				buff.append(b.getBookId() + "\t");
@@ -806,30 +806,30 @@ public class DemoBuiness {
 			}
 			log.info(buff);
 
-			commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+			commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 			
 		} finally {
-			dao.endTrans(commit);// ½áÊøÊÂÎñ
+			dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 	}
 	
 
 	/**
-	 * ´ÓÄ³¸ö±íÖÐ½öÈ¡Ò»Ìõ¼ÇÂ¼
+	 * ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½È¡Ò»ï¿½ï¿½ï¿½ï¿½Â¼
 	 * 
 	 * @throws Exception
 	 */
 	public void getOneBook() throws Exception {
         log.info("\ngetOneBook()>>>>>>>>>>>>>>>>>>>>");
-        dao.beginTrans(); // ·¢ÆðÊÂÎñ
-        boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+        dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
         try {
 
             Criteria c = Exp.eq("bookId", 102);
             Book book = (Book) dao.getOne(Book.class, c);
 
-            // Êä³ö²éÑ¯½á¹û
-            StringBuffer buff = new StringBuffer("²éÑ¯½á¹û: \n");
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½
+            StringBuffer buff = new StringBuffer("ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½: \n");
             if (book != null) {
                 buff.append(book.getBookId() + "\t");
                 buff.append(book.getTitle() + "\t");
@@ -840,9 +840,9 @@ public class DemoBuiness {
             }
             log.info(buff.toString());
 
-            commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+            commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
         } finally {
-            dao.endTrans(commit);// ½áÊøÊÂÎñ
+            dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
     }
 
@@ -851,22 +851,22 @@ public class DemoBuiness {
 
 		File file1 = new File("d:\\unix.txt");
 		File file2 = new File("d:\\unix.chm");
-		File file3 = new File("d:\\Èý¹úÑÝÒå.txt");
+		File file3 = new File("d:\\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.txt");
 
 		FileOutputStream out;
 		try {
 			out = new FileOutputStream(file1);
-			out.write("ÎÄ±¾ÎÄ±¾ÎÄ±¾ÎÄ±¾".getBytes());
+			out.write("ï¿½Ä±ï¿½ï¿½Ä±ï¿½ï¿½Ä±ï¿½ï¿½Ä±ï¿½".getBytes());
 			out.flush();
 			out.close();
 			
 			out = new FileOutputStream(file2);
-			out.write("ÊéÊéÊé".getBytes());
+			out.write("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½".getBytes());
 			out.flush();
 			out.close();
 			
 			out = new FileOutputStream(file3);
-			out.write("Èý¹úÈý¹úÈý¹úÈý¹ú".getBytes());
+			out.write("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½".getBytes());
 			out.flush();
 			out.close();
 			
@@ -881,7 +881,7 @@ public class DemoBuiness {
 
 		File file1 = new File("d:\\unix.txt");
 		File file2 = new File("d:\\unix.chm");
-		File file3 = new File("d:\\Èý¹úÑÝÒå.txt");
+		File file3 = new File("d:\\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.txt");
 		
 		file1.delete();
 		file2.delete();
@@ -889,15 +889,15 @@ public class DemoBuiness {
 	}
 	
 	/**
-	 * ÅúÁ¿Ôö¼Ó¶à±¾Êé;
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶à±¾ï¿½ï¿½;
 	 * 
 	 * @throws Exception
 	 */
 	public void addMultiBooks2() throws Exception {
         log.info("\naddMultiBooks2()>>>>>>>>>>>>>>>>>>>>");
 
-        dao.beginTrans(); // ·¢ÆðÊÂÎñ
-        boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+        dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
         try {
 
             int size = 1;
@@ -906,16 +906,16 @@ public class DemoBuiness {
             for (int i = 0; i < size; i++) {
                 BookArray[i] = new Book();
                 BookArray[i].setBookId(new ELong(100000+i));
-                BookArray[i].setTitle(new EString("UNIX-ÉÏ²á"+i));
+                BookArray[i].setTitle(new EString("UNIX-ï¿½Ï²ï¿½"+i));
                 BookArray[i].setCost(new EFloat(100.0f));
             }
 
-            dao.save(BookArray); // ³Ö¾Ã»¯ÊµÌå
+            dao.save(BookArray); // ï¿½Ö¾Ã»ï¿½Êµï¿½ï¿½
 
-            commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+            commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 
         } finally {
-            dao.endTrans(commit);// ½áÊøÊÂÎñ
+            dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
     }
 	
@@ -924,8 +924,8 @@ public class DemoBuiness {
 	public void finalTest ()throws Exception {
         log.info("\nfinalTest()>>>>>>>>>>>>>>>>>>>>");
 
-        dao.beginTrans(); // ·¢ÆðÊÂÎñ
-        boolean commit = false;// ÊÂÎñÖ´ÐÐ³É¹¦µÄ±êÊ¶
+        dao.beginTrans(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        boolean commit = false;// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³É¹ï¿½ï¿½Ä±ï¿½Ê¶
         try {
             
             @SuppressWarnings("rawtypes")
@@ -937,12 +937,12 @@ public class DemoBuiness {
             list.toArray(books);
             books[1].setCost(new EFloat("20000"));
 
-            dao.update(books); // ³Ö¾Ã»¯ÊµÌå
+            dao.update(books); // ï¿½Ö¾Ã»ï¿½Êµï¿½ï¿½
 
-            commit = true;// ±êÊ¶ÊÂÎñ³É¹¦Ö´ÐÐ
+            commit = true;// ï¿½ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½É¹ï¿½Ö´ï¿½ï¿½
 
         } finally {
-            dao.endTrans(commit);// ½áÊøÊÂÎñ
+            dao.endTrans(commit);// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
 	}
 }

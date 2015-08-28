@@ -1,4 +1,4 @@
-package test;
+package walker.easydb;
 
 import walker.easydb.dao.BaseEntity;
 import walker.easydb.datatype.EBinFile;
@@ -9,7 +9,7 @@ import walker.easydb.datatype.ETimestamp;
 import walker.easydb.datatype.ETxtFile;
 
 /**
- * BOOKÊµÌå
+ * BOOKÊµï¿½ï¿½
  * 
  * @author HuQingmiao
  * 
@@ -29,7 +29,7 @@ public class Book extends BaseEntity {
 
 	private ETxtFile textContent;
 
-	// ²»´æÔÚµÄÁÐ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½
 	private EString aNotExistCol;
 
 	public String[] pk() {

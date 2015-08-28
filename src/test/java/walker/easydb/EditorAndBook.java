@@ -1,82 +1,72 @@
-package test;
+package walker.easydb;
 
 import walker.easydb.dao.BaseEntity;
 import walker.easydb.datatype.EBinFile;
 import walker.easydb.datatype.EFloat;
-import walker.easydb.datatype.ELong;
 import walker.easydb.datatype.EString;
-import walker.easydb.datatype.ETimestamp;
 import walker.easydb.datatype.ETxtFile;
 
 /**
- * BOOKʵ��
+ * 
+ * ĳ��ѯ��ͼ��Ӧ��ʵ��
  * 
  * @author HuQingmiao
  *  
  */
 @SuppressWarnings("serial")
-public class Boek extends BaseEntity {
+public class EditorAndBook extends BaseEntity {
 
-    private ELong bookId;
+    private EString editorName; //��������
 
-    private EString title;
+    private EString editorSex;  //�����Ա�
 
-    private EFloat cost;
+    private EString title;	   //��������
 
-    private ETimestamp publishTime;
+    private EFloat cost; 	   //���
 
-    private EBinFile blobContent;
-
-    private ETxtFile textContent;
+    private EBinFile blobContent;//�������
     
-    public String[] pk() {
-        return new String[] { "bookId" };
-    }
+    private ETxtFile textContent;
 
+    
+    //������
+    public String[] pk() {
+        return null;
+    }
+    
     public EBinFile getBlobContent() {
         return blobContent;
     }
-
     public void setBlobContent(EBinFile blobContent) {
         this.blobContent = blobContent;
     }
-
-    public ELong getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(ELong bookId) {
-        this.bookId = bookId;
-    }
-
     public EFloat getCost() {
         return cost;
     }
-
     public void setCost(EFloat cost) {
         this.cost = cost;
     }
-
-    public ETimestamp getPublishTime() {
-        return publishTime;
+    public EString getEditorName() {
+        return editorName;
     }
-
-    public void setPublishTime(ETimestamp publishTime) {
-        this.publishTime = publishTime;
+    public void setEditorName(EString editorName) {
+        this.editorName = editorName;
     }
-
+    public EString getEditorSex() {
+        return editorSex;
+    }
+    public void setEditorSex(EString editorSex) {
+        this.editorSex = editorSex;
+    }
     public ETxtFile getTextContent() {
         return textContent;
     }
-
     public void setTextContent(ETxtFile textContent) {
         this.textContent = textContent;
     }
-
     public EString getTitle() {
         return title;
     }
-
     public void setTitle(EString title) {
         this.title = title;
     }

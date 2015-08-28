@@ -1,4 +1,4 @@
-package test;
+package walker.easydb;
 
 import walker.easydb.dao.BaseEntity;
 import walker.easydb.datatype.ELong;
@@ -6,7 +6,7 @@ import walker.easydb.datatype.EString;
 
 /**
  *
- * EDITOR ΚµΜε
+ * EDITOR ΚµοΏ½οΏ½
  *
  * @author  HuQingmiao
  *

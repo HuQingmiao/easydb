@@ -1,4 +1,4 @@
-package test;
+package walker.easydb;
 
 import org.apache.log4j.Logger;
 

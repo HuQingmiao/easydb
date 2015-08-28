@@ -1,0 +1,36 @@
+DROP TABLE BOOK ;
+
+CREATE TABLE BOOK
+(
+ BOOK_ID        int	     NOT NULL,  
+ TITLE     	VARCHAR(255)         , 
+ COST      	NUMERic(10,2)          , 
+ PUBLISH_TIME	datetime,			
+ BLOB_CONTENT   binary,
+ TEXT_CONTENT   text,
+ PRIMARY KEY(BOOK_ID)
+) ;
+
+
+DROP TABLE BOOK_EDITOR ;
+CREATE TABLE BOOK_EDITOR( 
+  BOOK_ID	int  ,	
+  EDITOR_ID int ,	
+  PRIMARY KEY(BOOK_ID, EDITOR_ID)
+) ;
+
+
+
+
+
+
+DROP TABLE EDITOR ;
+CREATE TABLE EDITOR (	  
+  EDITOR_ID    int	   ,
+  NAME    	VARCHAR(80)   ,
+  SEX		CHAR(1),		    	
+  PRIMARY KEY(EDITOR_ID)
+);
+
+
+

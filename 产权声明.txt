@@ -1,0 +1,5 @@
+1. 本软件(即EasyDB)的著作权、知识产权归 胡庆妙(Walker/HuQingmiao)所有, 其著作权登记号为2008SR08014.
+
+2. 本软件是指 "EasyDB.rar" 解压包中除log4j,JDBC驱动包之外的所有文件.
+
+3. 任何人在使用本软件前，必须经过 胡庆妙(Walker/HuQingmiao) 的许可.

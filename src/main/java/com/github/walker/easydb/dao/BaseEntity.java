@@ -6,64 +6,64 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
-import com.github.walker.easydb.exception.BaseException;
 import org.apache.log4j.Logger;
 
 import com.github.walker.easydb.assistant.LogFactory;
+import com.github.walker.easydb.exception.BaseException;
 import com.github.walker.easydb.exception.IllegalEntityException;
 
 /**
- * ����ʵ���࣬ ����ʵ����Ļ��࣬ �����������ݿ��Ԫ�����γ�ӳ�䡣 <br>
- * 
+ * 抽象实体类， 所有实体类的基类， 其子类与数据库的元数据形成映射。 <br>
+ * <p/>
  * This class reflects the meta data in database. The definition of its subclass
  * must observe following items. <br>
  * <br>
  * <br>
- * 
- * 1. ���������������ͼ������������ȷ�Ķ�Ӧ��ϵ���������еĵ�һ����ĸ���Լ��������»���"_"�����ĸ�������б����д�⣬
- * ������ĸ�������б���Сд���ұ����и���ĸǰ���»���"_"��������Ҫ��ɾ�����������£� <br>
- * ����Ϊ "COMPANY"�� ���Ӧ������ֻ��Ϊ"Company"; ����Ϊ "COMPANY_INFO"��
- * ���Ӧ������ֻ��Ϊ"CompanyInfo"; ����Ϊ "NET_INFO3"�� ���Ӧ������ֻ��Ϊ"NetInfo3"; ����Ϊ
- * "NET_INFO_3"�� ���Ӧ������ֻ��Ϊ"NetInfo_3"�� <br>
+ * <p/>
+ * 1. 类名与表名（或视图名）必须有明确的对应关系；除表名中的第一个字母、以及紧跟在下化线"_"后的字母在类名中必须大写外，
+ * 其它字母在类名中必须小写；且表名中各字母前的下化线"_"在类名中要被删除。举例如下： <br>
+ * 表名为 "COMPANY"， 则对应的类名只能为"Company"; 表名为 "COMPANY_INFO"，
+ * 则对应的类名只能为"CompanyInfo"; 表名为 "NET_INFO3"， 则对应的类名只能为"NetInfo3"; 表名为
+ * "NET_INFO_3"， 则对应的类名只能为"NetInfo_3"。 <br>
  * <br>
- * 
+ * <p/>
  * The relation of Class name and table name is one to one, except for the first
  * character and the character behind the underline('_') must be uppercase, all
  * other character must be lowercase in class name. <br>
  * <br>
  * <br>
- * 
- * 
- * 2. ��ĳʵ�����У�������������(���еı���)Ҳ��������ȷ�Ķ�Ӧ��ϵ�����������»��ߡ�_�������ĸ�������б����д�⣬
- * ������ĸ�������б���Сд���������и���ĸǰ���»���"_"����������Ҫ��ɾ�����������£� <br>
- * ����Ϊ ��NAME���� ���Ӧ������ֻ��Ϊ��name���� ����Ϊ ��COMPANY_NAME���� ���Ӧ������ֻ��Ϊ��companyName���� ����Ϊ
- * ��NET_TYPE2���� ���Ӧ������ֻ��Ϊ��NetType2���� ����Ϊ ��NET_TYPE_2���� ���Ӧ������ֻ��Ϊ��NetType_2����
+ * <p/>
+ * <p/>
+ * 2. 在某实体类中，属性名与列名(或列的别名)也必须有明确的对应关系；除紧跟在下化线”_”后的字母在列名中必须大写外，
+ * 其它字母在列名中必须小写；且列名中各字母前的下化线"_"在属性名中要被删除。举例如下： <br>
+ * 列名为 “NAME”， 则对应的类名只能为“name”； 列名为 “COMPANY_NAME”， 则对应的类名只能为“companyName”； 列名为
+ * “NET_TYPE2”， 则对应的类名只能为“NetType2”； 列名为 “NET_TYPE_2”， 则对应的类名只能为“NetType_2”。
  * <br>
  * <br>
- * 
+ * <p/>
  * In one Entity Class, The relation of field name and column name is one to
  * one, except for the character behind the underline('_') must be uppercase,
  * all other character must be lowercase in class name. <br>
  * <br>
  * <br>
- * 
- * 
- * 3. �������ͱ������±��еĶ�Ӧ��ϵһ�¡� �磺<br>
- * ����Oracle���ݿ⣬ ���ĳ�б�����Ϊ CHAR�� �����ڶ�Ӧʵ�����б��뱻����Ϊ EString;
- * ���ĳ�б�����ΪBLOB�������ڶ�Ӧʵ�����б��뱻����Ϊwalker.easydb.datatype.EBinFile���͡� ���±���ʾ: <br>
+ * <p/>
+ * <p/>
+ * 3. 属性类型必须与下表中的对应关系一致。 如：<br>
+ * 对于Oracle数据库， 如果某列被定义为 CHAR， 则其在对应实体类中必须被声明为 walker.easydb.datatype.EString;
+ * 如果某列被定义为BLOB，则其在对应实体类中必须被声明为walker.easydb.datatype.EBinFile类型。 如下表所示: <br>
  * <br>
- * 
+ * <p/>
  * The field types of entity class cann't be primitive, and must correspond with
  * the column data type, as follows: <br>
  * <br>
- * 
- * 
+ * <p/>
+ * <p/>
  * <table width=90% border=1 cellspacing=0 cellpadding=0>
- * 
+ * <p/>
  * <tr>
- * <td align=center height=20>���ݿ�����</td>
- * <td align=center>���ݿ����е���������</td>
- * <td align=center>ʵ���������Ե���������</td>
+ * <td align=center height=20>数据库类型</td>
+ * <td align=center>数据库中列的数据类型</td>
+ * <td align=center>实体类中属性的数据类型</td>
  * </tr>
  * <tr>
  * <td align=center rowspan=5 valign="middle">Oracle</td>
@@ -92,7 +92,7 @@ import com.github.walker.easydb.exception.IllegalEntityException;
  * <td align=left valign=middle>&nbspBLOB</td>
  * <td align=left valign=middle>&nbspwalker.easydb.datatype.EBinFile</td>
  * </tr>
- * 
+ * <p/>
  * <tr>
  * <td align=center rowspan=10 valign="middle">mysql</td>
  * <td align=left >&nbspCHAR <br>
@@ -148,62 +148,62 @@ import com.github.walker.easydb.exception.IllegalEntityException;
  * </tr>
  * </table>
  * <br>
- * 
- * 
- * 4. �������ʵ�ַ���: public abstract String[] pk(), �÷�������ָ����������.
+ * <p/>
+ * <p/>
+ * 4. 子类必须实现方法: public abstract String[] pk(), 该方法用来指定主键属性.
  * <br>
  * <br>
- * 
+ *
  * @author HuQingmiao
  */
 //* =====================================================================<br>
-//* | ���ݿ����� | ���ݿ����е��������� | ʵ���������Ե��������� |<br>
+//* | 数据库类型 | 数据库中列的数据类型 | 实体类中属性的数据类型 |<br>
 //* |-------------------------------------------------------------------|<br>
 //* | | CHAR | |<br>
-//* | | VARCHAR |EString |<br>
+//* | | VARCHAR |walker.easydb.datatype.EString |<br>
 //* | | VARCHAR2 | |<br>
 //* | |------------------------------------------------------|<br>
-//* | | | EInteger |<br>
-//* | | NUMBER | ELong |<br>
-//* | Oracle | | EFloat |<br>
-//* | | | EDouble |<br>
+//* | | | walker.easydb.datatype.EInteger |<br>
+//* | | NUMBER | walker.easydb.datatype.ELong |<br>
+//* | Oracle | | walker.easydb.datatype.EFloat |<br>
+//* | | | walker.easydb.datatype.EDouble |<br>
 //* | |------------------------------------------------------|<br>
-//* | | DATE |ETimestamp|<br>
+//* | | DATE |walker.easydb.datatype.ETimestamp|<br>
 //* | |------------------------------------------------------|<br>
-//* | | CLOB |ETxtFile |<br>
+//* | | CLOB |walker.easydb.datatype.ETxtFile |<br>
 //* | |------------------------------------------------------|<br>
-//* | | BLOB |EBinFile |<br>
+//* | | BLOB |walker.easydb.datatype.EBinFile |<br>
 //* |-------------------------------------------------------------------|<br>
 //* | | CHAR | |<br>
-//* | | VARCHAR |EString |<br>
+//* | | VARCHAR |walker.easydb.datatype.EString |<br>
 //* | | SET | |<br>
 //* | |------------------------------------------------------|<br>
-//* | | SMALLINT |EInteger |<br>
+//* | | SMALLINT |walker.easydb.datatype.EInteger |<br>
 //* | |------------------------------------------------------|<br>
-//* | | INT |EInteger |<br>
-//* | | |ELong |<br>
+//* | | INT |walker.easydb.datatype.EInteger |<br>
+//* | | |walker.easydb.datatype.ELong |<br>
 //* | |------------------------------------------------------|<br>
-//* | | BIGINT |ELong |<br>
+//* | | BIGINT |walker.easydb.datatype.ELong |<br>
 //* | |------------------------------------------------------|<br>
-//* | mysql | FLOAT |EFloat |<br>
-//* | | |EDouble |<br>
+//* | mysql | FLOAT |walker.easydb.datatype.EFloat |<br>
+//* | | |walker.easydb.datatype.EDouble |<br>
 //* | |------------------------------------------------------|<br>
-//* | | DOUBLE |EDouble |<br>
+//* | | DOUBLE |walker.easydb.datatype.EDouble |<br>
 //* | |------------------------------------------------------|<br>
 //* | | DATE | |<br>
-//* | | DATETIME |ETimestamp|<br>
+//* | | DATETIME |walker.easydb.datatype.ETimestamp|<br>
 //* | |------------------------------------------------------|<br>
-//* | | |EString |<br>
-//* | | TINYTEXT |ETxtFile |<br>
+//* | | |walker.easydb.datatype.EString |<br>
+//* | | TINYTEXT |walker.easydb.datatype.ETxtFile |<br>
 //* | |------------------------------------------------------|<br>
 //* | | TEXT | |<br>
 //* | | MEDIUMTEXT | |<br>
-//* | | LONGTEXT |ETxtFile |<br>
+//* | | LONGTEXT |walker.easydb.datatype.ETxtFile |<br>
 //* | |------------------------------------------------------|<br>
 //* | | TINYBLOB | |<br>
 //* | | BLOB | |<br>
 //* | | MEDIUMBLOB | |<br>
-//* | | LONGBLOB |EBinFile |<br>
+//* | | LONGBLOB |walker.easydb.datatype.EBinFile |<br>
 //* |-------------------------------------------------------------------|<br>
 @SuppressWarnings("serial")
 public abstract class BaseEntity implements Serializable {
@@ -211,14 +211,14 @@ public abstract class BaseEntity implements Serializable {
 
     private static Logger log = LogFactory.getLogger(BaseEntity.class);
 
-    //��ŵ�ǰʵ��������Լ�����
-    private HashMap<String,Class<?>> fieldNameTypeMap = new HashMap<String,Class<?>>(10);
+    //存放当前实体类的属性及类型
+    private HashMap<String, Class<?>> fieldNameTypeMap = new HashMap<String, Class<?>>(10);
 
-    //    public EString rowid;//�а汾��. ����Ϊpublic,�����䲻�ɼ�.
+    //    public EString rowid;//行版本号. 必须为public,否则反射不可见.
 
     public BaseEntity() {
 
-        //�����Լ������ʹ���map(fieldName,fieldType)
+        //将属性及其类型存入map(fieldName,fieldType)
         Field[] fields = this.getClass().getDeclaredFields();
 
         for (int i = 0; i < fields.length; i++) {
@@ -227,21 +227,18 @@ public abstract class BaseEntity implements Serializable {
     }
 
     /**
-     * ȡ�ô���������������
-     * 
-     * @return ����������������
+     * 取得代表主键的属性组
+     *
+     * @return 代表主键的属性组
      */
     public abstract String[] pk();
 
     /**
-     * ����������ȡֵ
-     * 
-     * @param propertyName
-     *            ������
-     * 
-     * @return ����ֵ
-     * 
-     * @throws com.github.walker.easydb.exception.BaseException
+     * 根据属性名取值
+     *
+     * @param propertyName 属性名
+     * @return 属性值
+     * @throws BaseException
      */
     public Object get(String propertyName) throws BaseException {
 
@@ -252,10 +249,10 @@ public abstract class BaseEntity implements Serializable {
         try {
             //builds the method name, such as: "getXX"
             Method method = this.getClass().getMethod(methodName,
-                    new Class[] {});
+                    new Class[]{});
 
             //Getting value of the field by the method.
-            Object fieldValue = method.invoke(this, new Object[] {});
+            Object fieldValue = method.invoke(this, new Object[]{});
 
             return fieldValue;
 
@@ -278,8 +275,8 @@ public abstract class BaseEntity implements Serializable {
     }
 
     /**
-     * ��ָ����������ֵ
-     * 
+     * 对指定属性设置值
+     *
      * @param propertyName
      * @param value
      * @throws BaseException
@@ -292,10 +289,10 @@ public abstract class BaseEntity implements Serializable {
 
         try {
             Method method = this.getClass().getMethod(methodName,
-                    new Class[] { (Class<?>) fieldNameTypeMap.get(propertyName) });
+                    new Class[]{(Class<?>) fieldNameTypeMap.get(propertyName)});
 
             //Setting value of the field by the method.
-            method.invoke(this, new Object[] { value });
+            method.invoke(this, new Object[]{value});
 
         } catch (NoSuchMethodException e) {
             log.error("", e);
@@ -314,9 +311,9 @@ public abstract class BaseEntity implements Serializable {
 
         }
     }
-    
-    
-    public HashMap<String,Class<?>> fieldNameTypeMap(){
+
+
+    public HashMap<String, Class<?>> fieldNameTypeMap() {
         return this.fieldNameTypeMap;
     }
 

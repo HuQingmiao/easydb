@@ -12,62 +12,57 @@ import org.apache.log4j.Logger;
 import com.github.walker.easydb.assistant.LogFactory;
 
 /**
- * �ı��ļ����ͣ���ӳ�����ݿ���ı����ֶ�����, ����Oracle�е�CLOB,����CLOB�ֶ�д��ʱ�����õ������͡�
- * 
+ * 文本文件类型，它映射数据库的文本大字段类型, 比如Oracle中的CLOB,当向CLOB字段写入时，会用到此类型。
+ * <p/>
  * This class extends the File class, it reflects the big text type column in
  * database, such as CLOB type of oracle.
- * 
+ * <p/>
  * If you want to write binary file into database, such as BLOB type of oracle
  * or mysql, you can using walker.easydb.datatype.BinaryFile.
- * 
- * @see EBinFile
- * 
+ *
  * @author Huqingmiao
- *  
+ * @see EBinFile
  */
 @SuppressWarnings("serial")
-public class ETxtFile extends File  implements UpdateIdentifier{
+public class ETxtFile extends File implements UpdateIdentifier {
 
 
-
-    //��ʶ�Ƿ�Ѷ�Ӧ�и���
+    //标识是否把对应列更新
     private boolean needUpdate = false;
 
-    //��ʶ�Ƿ�Ѷ�Ӧ���ÿ�
+    //标识是否把对应列置空
     private boolean isEmpty = false;
-    
+
 
     /**
-     * �����ӣ�������Ķ�������Ӧ�Ĵ��ֶ��У�e.g CLOB����������Ϊnull.
-     * 
+     * 构造子，其产生的对象所对应的大字段列（e.g CLOB）将被更新为null.
+     * <p/>
      * Constructor, produce a empty Timestamp instance.
-     *
      */
     public ETxtFile() {
         super("");
-        this.isEmpty = true; //�ÿ�
-        this.needUpdate = true; //Ҫ����
+        this.isEmpty = true; //置空
+        this.needUpdate = true; //要更新
     }
 
     /**
-     * ���ݸ������ļ�·������һ���������ļ���ʵ����
-     * 
+     * 根据给定的文件路径生成一个二进制文件的实例。
+     * <p/>
      * Creates a new File instance by converting the given pathname string into
      * an abstract pathname.
-     * 
-     * @param pathname
-     *            a pathname string.
+     *
+     * @param pathname a pathname string.
      */
     public ETxtFile(String pathname) {
         super(pathname);
-                
-        this.isEmpty = false; //�ǿ�
-        this.needUpdate = true; //Ҫ����
+
+        this.isEmpty = false; //非空
+        this.needUpdate = true; //要更新
     }
 
     /**
-     * �����Ƿ�Ѷ�Ӧ�и���;
-     * 
+     * 设置是否把对应列更新;
+     *
      * @param flag
      */
     public void setUpdate(boolean flag) {
@@ -76,57 +71,55 @@ public class ETxtFile extends File  implements UpdateIdentifier{
     }
 
     /**
-     * ֻ�е��˷�������trueʱ, �־û������Ż���¶�Ӧ��.
-     *  
+     * 只有当此方法返回true时, 持久化动作才会更新对应列.
      */
     public boolean needUpdate() {
         return this.needUpdate;
     }
 
     /**
-     * �ж�����ֵ�Ƿ�Ϊnull, �Ծ����Ƿ�Ӧ�ý���Ӧ����null
-     *  
+     * 判断属性值是否为null, 以决定是否应该将对应列置null
      */
     public boolean isEmpty() {
         return this.isEmpty;
     }
-    
-    public String toString(){
-        if(!this.isEmpty()){
+
+    public String toString() {
+        if (!this.isEmpty()) {
             return super.toString();
         }
-        
+
         return "";
     }
 
-    public String getPath(){
-        if(!this.isEmpty()){
+    public String getPath() {
+        if (!this.isEmpty()) {
             return super.getPath();
         }
-        
+
         return "";
     }
-    
-    public String getCanonicalPath() throws IOException{
-        if(!this.isEmpty()){
+
+    public String getCanonicalPath() throws IOException {
+        if (!this.isEmpty()) {
             return super.getCanonicalPath();
         }
-        
+
         return "";
     }
-    
-    public String getAbsolutePath(){
-        if(!this.isEmpty()){
+
+    public String getAbsolutePath() {
+        if (!this.isEmpty()) {
             return super.getAbsolutePath();
         }
-       
-        return ""; 
+
+        return "";
     }
-    
+
     /**
-     * ȡ�ļ�����
-     * 
-     * @return �ַ�����ʽ���ļ�����
+     * 取文件内容
+     *
+     * @return 字符串形式的文件内容
      * @throws IOException
      */
     public String getFileContent() throws IOException {
@@ -148,13 +141,13 @@ public class ETxtFile extends File  implements UpdateIdentifier{
             throw e;
         }
     }
-    
-    
+
+
     /**
-     * ��ȡָ�����ı��ļ�������
-     * 
+     * 读取指定的文本文件的内容
+     *
      * @param file
-     * @return �ַ�����ʽ���ļ�����
+     * @return 字符串形式的文件内容
      * @throws IOException
      */
     public static String convertToString(ETxtFile file) throws IOException {
@@ -175,13 +168,12 @@ public class ETxtFile extends File  implements UpdateIdentifier{
         } catch (IOException e) {
             throw e;
         }
-    } 
-    
+    }
+
 
     /**
-     * 
-     * ���ַ���д��ָ�����ļ�
-     * 
+     * 把字符串写入指定的文件
+     *
      * @param content
      * @param filename
      * @return ETxtFile object

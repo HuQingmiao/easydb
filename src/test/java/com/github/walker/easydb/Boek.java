@@ -4,8 +4,8 @@ import com.github.walker.easydb.dao.BaseEntity;
 import com.github.walker.easydb.datatype.EBinFile;
 import com.github.walker.easydb.datatype.EFloat;
 import com.github.walker.easydb.datatype.ELong;
-import com.github.walker.easydb.datatype.ETimestamp;
 import com.github.walker.easydb.datatype.EString;
+import com.github.walker.easydb.datatype.ETimestamp;
 import com.github.walker.easydb.datatype.ETxtFile;
 
 /**

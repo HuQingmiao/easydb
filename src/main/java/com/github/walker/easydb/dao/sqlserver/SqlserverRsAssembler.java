@@ -1,13 +1,11 @@
 package com.github.walker.easydb.dao.sqlserver;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Blob;
@@ -20,15 +18,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Properties;
 
+import com.github.walker.easydb.assistant.DateTimeUtil;
 import com.github.walker.easydb.dao.BaseEntity;
+import com.github.walker.easydb.dao.PageList;
 import com.github.walker.easydb.dao.ResultAssembler;
 import com.github.walker.easydb.dao.SettingMethodExp;
 import com.github.walker.easydb.exception.DataAccessException;
 import com.github.walker.easydb.exception.FileAccessException;
 import com.github.walker.easydb.exception.IllegalEntityException;
-import oracle.sql.CLOB;
-import com.github.walker.easydb.assistant.DateTimeUtil;
-import com.github.walker.easydb.dao.PageList;
 import com.github.walker.easydb.datatype.EBinFile;
 import com.github.walker.easydb.datatype.EDouble;
 import com.github.walker.easydb.datatype.EFloat;
@@ -40,11 +37,11 @@ import com.github.walker.easydb.datatype.ETimestamp;
 import com.github.walker.easydb.datatype.ETxtFile;
 
 /**
- * 
+ *
  * The sqlserver database version of ResultAssembler.
- * 
+ *
  * @author HuQingmiao
- * 
+ *
  */
 class SqlserverRsAssembler extends ResultAssembler {
 
@@ -58,16 +55,16 @@ class SqlserverRsAssembler extends ResultAssembler {
 
 	/**
 	 * Build ArrayList object with query result.
-	 * 
+	 *
 	 * @return
-	 * 
+	 *
 	 * @throws com.github.walker.easydb.exception.IllegalEntityException
 	 * @throws com.github.walker.easydb.exception.DataAccessException
 	 */
 	@SuppressWarnings("unchecked")
 	protected void buildList() throws IllegalEntityException, DataAccessException, FileAccessException {
 
-		// ���ڴ���BLOB/CLOB�����������
+		// 用于处理BLOB/CLOB的输入输出流
 		OutputStream out = null;
 		InputStream in = null;
 
@@ -87,43 +84,39 @@ class SqlserverRsAssembler extends ResultAssembler {
 					Method method = mdExp.getMethod();
 					String paraType = mdExp.getParamType();
 
-					if ("EString".equals(paraType)) {
+					if ("walker.easydb.datatype.EString".equals(paraType)) {
 						String v = rs.getString(col);
 						EString ev = (v == null) ? new EString() : new EString(v);
 						method.invoke(entity, new Object[] { ev });
 
-					} else if ("ELong".equals(paraType)) {
+					} else if ("walker.easydb.datatype.ELong".equals(paraType)) {
 						String v = rs.getString(col);
 						ELong ev = (v == null) ? new ELong() : new ELong(rs.getLong(col));
 						method.invoke(entity, new Object[] { ev });
 
-					} else if ("EInteger".equals(paraType)) {
+					} else if ("walker.easydb.datatype.EInteger".equals(paraType)) {
 						String v = rs.getString(col);
 						EInteger ev = (v == null) ? new EInteger() : new EInteger(rs.getInt(col));
 						method.invoke(entity, new Object[] { ev });
 
-					} else if ("EDouble".equals(paraType)) {
+					} else if ("walker.easydb.datatype.EDouble".equals(paraType)) {
 						String v = rs.getString(col);
 						EDouble ev = (v == null) ? new EDouble() : new EDouble(rs.getDouble(col));
 						method.invoke(entity, new Object[] { ev });
 
-					} else if ("ETimestamp".equals(paraType)) {
+					} else if ("walker.easydb.datatype.ETimestamp".equals(paraType)) {
 						Timestamp v = rs.getTimestamp(col);
 						ETimestamp ev = (v == null) ? new ETimestamp() : new ETimestamp(v.getTime());
 						method.invoke(entity, new Object[] { ev });
 
-					} else if ("ELString".equals(paraType)) {
+					} else if ("walker.easydb.datatype.ELString".equals(paraType)) {
 						Clob clob = rs.getClob(col);
 
 						if (clob == null) {
 							method.invoke(entity, new Object[] { new ELString() });
-
-						} else {
-							String ev = this.clobToString((oracle.sql.CLOB) clob);
-							method.invoke(entity, new Object[] { new ELString(ev) });
 						}
 
-					} else if ("EBinFile".equals(paraType)) {
+					} else if ("walker.easydb.datatype.EBinFile".equals(paraType)) {
 						Blob blob = rs.getBlob(col);
 
 						if (blob == null) {
@@ -131,7 +124,7 @@ class SqlserverRsAssembler extends ResultAssembler {
 
 						} else {
 
-							// ���û����easydb.property�������ļ����Ŀ¼, ��ȡjava��ʱĿ¼
+							// 如果没有在easydb.property中配置文件存放目录, 则取java临时目录
 							String tmpDir = BASE_FILE_DIRC;
 							if (tmpDir == null) {
 								Properties env = System.getProperties();
@@ -182,14 +175,14 @@ class SqlserverRsAssembler extends ResultAssembler {
 
 							method.invoke(entity, new Object[] { file });
 						}
-					} else if ("ETxtFile".equals(paraType)) {
+					} else if ("walker.easydb.datatype.ETxtFile".equals(paraType)) {
 						Clob clob = rs.getClob(col);
 
 						if (clob == null) {
 							method.invoke(entity, new Object[] { new ETxtFile() });
 						} else {
 
-							// ���û����easydb.property�������ļ����Ŀ¼, ��ȡjava��ʱĿ¼
+							// 如果没有在easydb.property中配置文件存放目录, 则取java临时目录
 							String tmpDir = BASE_FILE_DIRC;
 							if (tmpDir == null) {
 								Properties env = System.getProperties();
@@ -240,14 +233,14 @@ class SqlserverRsAssembler extends ResultAssembler {
 
 							method.invoke(entity, new Object[] { file });
 						}
-					} else if ("EFloat".equals(paraType)) {
+					} else if ("walker.easydb.datatype.EFloat".equals(paraType)) {
 
 						String v = rs.getString(col);
 						EFloat ev = (v == null) ? new EFloat() : new EFloat(rs.getFloat(col));
 						method.invoke(entity, new Object[] { ev });
 
 					} else {
-						// ��֧�ֵ���������
+						// 不支持的数据类型
 						throw new IllegalEntityException(IllegalEntityException.DATATYPE_NOT_SUPPORT, paraType);
 					}
 					paraType = null;
@@ -294,12 +287,12 @@ class SqlserverRsAssembler extends ResultAssembler {
 
 	/**
 	 * Load data to the specified entity
-	 * 
+	 *
 	 */
 	protected boolean loadData(BaseEntity entity) throws IllegalEntityException, DataAccessException,
 			FileAccessException {
 
-		// ���ڴ���BLOB/CLOB�����������
+		// 用于处理BLOB/CLOB的输入输出流
 		OutputStream out = null;
 		InputStream in = null;
 
@@ -312,43 +305,39 @@ class SqlserverRsAssembler extends ResultAssembler {
 					Method method = mdExp.getMethod();
 					String paraType = mdExp.getParamType();
 
-					if ("EString".equals(paraType)) {
+					if ("walker.easydb.datatype.EString".equals(paraType)) {
 						String v = rs.getString(col);
 						EString ev = (v == null) ? new EString() : new EString(v);
 						method.invoke(entity, new Object[] { ev });
 
-					} else if ("ELong".equals(paraType)) {
+					} else if ("walker.easydb.datatype.ELong".equals(paraType)) {
 						String v = rs.getString(col);
 						ELong ev = (v == null) ? new ELong() : new ELong(rs.getLong(col));
 						method.invoke(entity, new Object[] { ev });
 
-					} else if ("EInteger".equals(paraType)) {
+					} else if ("walker.easydb.datatype.EInteger".equals(paraType)) {
 						String v = rs.getString(col);
 						EInteger ev = (v == null) ? new EInteger() : new EInteger(rs.getInt(col));
 						method.invoke(entity, new Object[] { ev });
 
-					} else if ("EDouble".equals(paraType)) {
+					} else if ("walker.easydb.datatype.EDouble".equals(paraType)) {
 						String v = rs.getString(col);
 						EDouble ev = (v == null) ? new EDouble() : new EDouble(rs.getDouble(col));
 						method.invoke(entity, new Object[] { ev });
 
-					} else if ("ETimestamp".equals(paraType)) {
+					} else if ("walker.easydb.datatype.ETimestamp".equals(paraType)) {
 						Timestamp v = rs.getTimestamp(col);
 						ETimestamp ev = (v == null) ? new ETimestamp() : new ETimestamp(v.getTime());
 						method.invoke(entity, new Object[] { ev });
 
-					} else if ("ELString".equals(paraType)) {
+					} else if ("walker.easydb.datatype.ELString".equals(paraType)) {
 						Clob clob = rs.getClob(col);
 
 						if (clob == null) {
 							method.invoke(entity, new Object[] { new ELString() });
-
-						} else {
-							String ev = this.clobToString((oracle.sql.CLOB) clob);
-							method.invoke(entity, new Object[] { new ELString(ev) });
 						}
 
-					} else if ("EBinFile".equals(paraType)) {
+					} else if ("walker.easydb.datatype.EBinFile".equals(paraType)) {
 						Blob blob = rs.getBlob(col);
 
 						if (blob == null) {
@@ -356,7 +345,7 @@ class SqlserverRsAssembler extends ResultAssembler {
 
 						} else {
 
-							// ���û����easydb.property�������ļ����Ŀ¼, ��ȡjava��ʱĿ¼
+							// 如果没有在easydb.property中配置文件存放目录, 则取java临时目录
 							String tmpDir = BASE_FILE_DIRC;
 							if (tmpDir == null) {
 								Properties env = System.getProperties();
@@ -407,14 +396,14 @@ class SqlserverRsAssembler extends ResultAssembler {
 
 							method.invoke(entity, new Object[] { file });
 						}
-					} else if ("ETxtFile".equals(paraType)) {
+					} else if ("walker.easydb.datatype.ETxtFile".equals(paraType)) {
 						Clob clob = rs.getClob(col);
 
 						if (clob == null) {
 							method.invoke(entity, new Object[] { new ETxtFile() });
 						} else {
 
-							// ���û����easydb.property�������ļ����Ŀ¼, ��ȡjava��ʱĿ¼
+							// 如果没有在easydb.property中配置文件存放目录, 则取java临时目录
 							String tmpDir = BASE_FILE_DIRC;
 							if (tmpDir == null) {
 								Properties env = System.getProperties();
@@ -465,20 +454,20 @@ class SqlserverRsAssembler extends ResultAssembler {
 
 							method.invoke(entity, new Object[] { file });
 						}
-					} else if ("EFloat".equals(paraType)) {
+					} else if ("walker.easydb.datatype.EFloat".equals(paraType)) {
 
 						String v = rs.getString(col);
 						EFloat ev = (v == null) ? new EFloat() : new EFloat(rs.getFloat(col));
 						method.invoke(entity, new Object[] { ev });
 
 					} else {
-						// ��֧�ֵ���������
+						// 不支持的数据类型
 						throw new IllegalEntityException(IllegalEntityException.DATATYPE_NOT_SUPPORT, paraType);
 					}
 					paraType = null;
 				}
 
-				// ��ѯ�����Ľ��������1������WHERE�Ӿ��еĲ�ѯ������
+				// 查询出来的结果数大于1，请检查WHERE子句中的查询条件！
 				if (rs.next()) {
 					throw new DataAccessException(DataAccessException.RS_COUNT_GREATER1,"");
 				}
@@ -486,7 +475,7 @@ class SqlserverRsAssembler extends ResultAssembler {
 				return true;
 			}// end if(rs.next())
 
-			// û�ҵ�������ƥ�������,����ʧ��
+			// 没找到与主键匹配的数据,载入失败
 			return false;
 
 		} catch (SQLException e) {
@@ -528,18 +517,5 @@ class SqlserverRsAssembler extends ResultAssembler {
 		return rsList;
 	}
 
-	// ����CLOBת��STRING����
-	public String clobToString(CLOB clob) throws SQLException, IOException {
 
-		Reader is = clob.getCharacterStream();// �õ���
-		BufferedReader br = new BufferedReader(is);
-		String s = br.readLine();
-		StringBuffer buff = new StringBuffer();
-		while (s != null) {// ִ��ѭ�����ַ���ȫ��ȡ����ֵ��StringBuffer��StringBufferת��STRING
-			buff.append(s);
-			s = br.readLine();
-		}
-		br.close();
-		return buff.toString();
-	}
 }

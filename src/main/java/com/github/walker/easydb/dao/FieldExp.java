@@ -1,9 +1,9 @@
 package com.github.walker.easydb.dao;
 
 /**
- * 
+ *
  * This class express the field of BaseEntity object.
- * 
+ *
  * @author HuQingmiao
  */
 public class FieldExp {
@@ -15,7 +15,7 @@ public class FieldExp {
 	private Object fieldValue;// the value of field
 
 	/**
-	 * 
+	 *
 	 * @param fieldName
 	 *            the field name, or the attribute name
 	 * @param fieldType
@@ -30,7 +30,7 @@ public class FieldExp {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param fieldName
 	 *            the field name, or the attribute name
 	 * @param fieldType

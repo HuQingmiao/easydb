@@ -3,25 +3,21 @@ package com.github.walker.easydb.datatype;
 import java.io.Serializable;
 
 /**
- * ELong��, �ṩ��Long��Ĺ��ܲ�ʵ����UpdateIdentifier�ӿ�.
- * 
- * 
- * @see UpdateIdentifier
- * 
+ * ELong类, 提供了Long类的功能并实现了UpdateIdentifier接口.
+ *
  * @author Huqingmiao
- *  
+ * @see UpdateIdentifier
  */
-@SuppressWarnings({ "rawtypes", "serial" })
+@SuppressWarnings({"rawtypes", "serial"})
 public class ELong extends Number implements UpdateIdentifier, Serializable, Comparable {
 
     private Long aLong = null;
 
-    //��ʶ�Ƿ�Ѷ�Ӧ�и���
+    //标识是否把对应列更新
     private boolean needUpdate = false;
 
     /**
-     * �����ӣ��䴴���Ķ�������Ӧ���н�������ΪNULL
-     *  
+     * 构造子，其创建的对象所对应的列将被更新为NULL
      */
     public ELong() {
         this.aLong = null;
@@ -29,9 +25,7 @@ public class ELong extends Number implements UpdateIdentifier, Serializable, Com
     }
 
     /**
-     * 
-     * �����ӣ��䴴���Ķ��󽫱�Ĭ����Ҫ�������ݿ�.
-     *  
+     * 构造子，其创建的对象将被默认需要更到数据库.
      */
     public ELong(long l) {
         this.aLong = new Long(l);
@@ -39,15 +33,12 @@ public class ELong extends Number implements UpdateIdentifier, Serializable, Com
     }
 
     /**
-     * 
-     * �����ӣ��䴴���Ķ��󽫱�Ĭ����Ҫ�������ݿ�.
-     *  
+     * 构造子，其创建的对象将被默认需要更到数据库.
      */
     public ELong(String s) {
         this.aLong = new Long(s);
         this.needUpdate = true;
     }
-
 
 
     public int compareTo(Object o) {
@@ -58,23 +49,20 @@ public class ELong extends Number implements UpdateIdentifier, Serializable, Com
                 return this.aLong.compareTo(((ELong) o).toLong());
             }
         }
-        
+
         return 0;
     }
 
     /**
-     * 
-     * ����Long���͵�����
-     *  
+     * 返回Long类型的数据
      */
     public Long toLong() {
         return this.aLong;
     }
 
     /**
-     * 
      * Returns a string representation of this Long object.
-     * 
+     *
      * @see java.lang.Long#toString()
      */
     public String toString() {
@@ -86,7 +74,6 @@ public class ELong extends Number implements UpdateIdentifier, Serializable, Com
 
 
     /**
-     * 
      * @see java.lang.Long#doubleValue()
      */
     public double doubleValue() {
@@ -94,7 +81,6 @@ public class ELong extends Number implements UpdateIdentifier, Serializable, Com
     }
 
     /**
-     * 
      * @see java.lang.Long#floatValue()
      */
     public float floatValue() {
@@ -102,7 +88,6 @@ public class ELong extends Number implements UpdateIdentifier, Serializable, Com
     }
 
     /**
-     * 
      * @see java.lang.Long#intValue()
      */
     public int intValue() {
@@ -110,7 +95,6 @@ public class ELong extends Number implements UpdateIdentifier, Serializable, Com
     }
 
     /**
-     * 
      * @see java.lang.Long#longValue()
      */
     public long longValue() {
@@ -118,8 +102,8 @@ public class ELong extends Number implements UpdateIdentifier, Serializable, Com
     }
 
     /**
-     * �����Ƿ�Ѷ�Ӧ�и���;
-     * 
+     * 设置是否把对应列更新;
+     *
      * @param flag
      */
     public void setUpdate(boolean flag) {
@@ -128,30 +112,28 @@ public class ELong extends Number implements UpdateIdentifier, Serializable, Com
     }
 
     /**
-     * ֻ�е��˷�������trueʱ, �־û������Ż���¶�Ӧ��.
-     *  
+     * 只有当此方法返回true时, 持久化动作才会更新对应列.
      */
     public boolean needUpdate() {
         return this.needUpdate;
     }
 
     /**
-     * �ж�����ֵ�Ƿ�Ϊnull, �Ծ����Ƿ�Ӧ�ý���Ӧ����null
-     *  
+     * 判断属性值是否为null, 以决定是否应该将对应列置null
      */
     public boolean isEmpty() {
         return this.aLong == null;
     }
-    
+
     public boolean equals(ELong el) {
-       
+
         if (this.aLong != null) {
             return this.aLong.equals(el.toLong());
-        }else{
-            if(el==null){
+        } else {
+            if (el == null) {
                 return true;
-            } 
+            }
             return false;
         }
-    }  
+    }
 }

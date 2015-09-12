@@ -10,36 +10,36 @@ import java.sql.Types;
 import java.util.HashMap;
 import java.util.Vector;
 
-import com.github.walker.easydb.dao.ResultAssembler;
-import com.github.walker.easydb.datatype.EBinFile;
-import com.github.walker.easydb.datatype.ELString;
-import com.github.walker.easydb.datatype.ETimestamp;
+import com.github.walker.easydb.dao.SqlConstructor;
+import com.github.walker.easydb.exception.FileAccessException;
 import com.github.walker.easydb.exception.IllegalParamException;
 import com.github.walker.easydb.criterion.Criteria;
 import com.github.walker.easydb.dao.EasyDao;
 import com.github.walker.easydb.dao.EntityParser;
 import com.github.walker.easydb.dao.FieldExp;
-import com.github.walker.easydb.dao.SqlConstructor;
+import com.github.walker.easydb.dao.ResultAssembler;
 import com.github.walker.easydb.dao.SqlParamMap;
+import com.github.walker.easydb.datatype.EBinFile;
 import com.github.walker.easydb.datatype.EDouble;
 import com.github.walker.easydb.datatype.EFloat;
 import com.github.walker.easydb.datatype.EInteger;
+import com.github.walker.easydb.datatype.ELString;
 import com.github.walker.easydb.datatype.ELong;
 import com.github.walker.easydb.datatype.EString;
+import com.github.walker.easydb.datatype.ETimestamp;
 import com.github.walker.easydb.datatype.ETxtFile;
 import com.github.walker.easydb.exception.DataAccessException;
-import com.github.walker.easydb.exception.FileAccessException;
 import com.github.walker.easydb.exception.IllegalEntityException;
 
 /**
  * sqlserver database version of EasyDAO.
- * 
+ *
  * @author HuQingmiao
- * 
+ *
  */
 public class SqlserverDAO extends EasyDao {
 
-	// �����ַ������д�볤�ȣ� �����˳�����������ʽд��
+	// 定义字符串最大写入长度， 超过此长度则用流方式写入
 	private final int LENGTHB = 2048;
 
 	public SqlserverDAO() {
@@ -84,22 +84,22 @@ public class SqlserverDAO extends EasyDao {
 			throws DataAccessException, IllegalEntityException {
 
 		try {
-			// ������ĵȴ����µ�����
+			// 解析后的等待更新的属性
 			HashMap<String, FieldExp> fieldExpMap = entityParser.getFieldExpMap();
 
 			for (int i = 0; i < indexedFieldVec.size(); i++) {
 
-				// ������
+				// 属性名
 				String fieldName = (String) indexedFieldVec.get(i);
 
-				// ����ֵ
+				// 属性值
 				FieldExp fieldExp = (FieldExp) fieldExpMap.get(fieldName);
 				Object fieldValue = fieldExp.getFieldValue();
 
 				if (fieldValue instanceof EString) {
 					EString e = (EString) fieldValue;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 
 						if (e.toString().getBytes().length <= LENGTHB) {
 							log.debug("prepared to set " + (i + 1) + ": " + e.toString());
@@ -108,7 +108,7 @@ public class SqlserverDAO extends EasyDao {
 							log.debug("prepared to set " + (i + 1) + ": " + e.toString().substring(0, LENGTHB / 4)
 									+ "...");
 
-							// ���ڳ���2K�ֽ����ҳ��ȵ��ַ�����������ʽд��, ����Oracle���ݿ��Ǳ������������
+							// 对于超过2K字节左右长度的字符串则用流方式写入, 对于Oracle数据库是必须这样处理的
 							Reader reader = new StringReader(e.toString());
 							stmt.setCharacterStream((i + 1), reader, e.length());
 						}
@@ -120,7 +120,7 @@ public class SqlserverDAO extends EasyDao {
 				} else if (fieldValue instanceof ELong) {
 					ELong e = (ELong) fieldValue;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 						log.debug("prepared to set " + (i + 1) + ": " + e.longValue());
 						stmt.setLong(i + 1, e.longValue());
 					} else {
@@ -132,7 +132,7 @@ public class SqlserverDAO extends EasyDao {
 
 					EInteger e = (EInteger) fieldValue;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 						log.debug("prepared to set " + (i + 1) + ": " + e.intValue());
 						stmt.setInt(i + 1, e.intValue());
 					} else {
@@ -143,7 +143,7 @@ public class SqlserverDAO extends EasyDao {
 				} else if (fieldValue instanceof EDouble) {
 					EDouble e = (EDouble) fieldValue;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 						log.debug("prepared to set " + (i + 1) + ": " + e.doubleValue());
 						stmt.setDouble(i + 1, e.doubleValue());
 					} else {
@@ -154,7 +154,7 @@ public class SqlserverDAO extends EasyDao {
 				} else if (fieldValue instanceof ETimestamp) {
 					ETimestamp e = (ETimestamp) fieldValue;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 						log.debug("prepared to set " + (i + 1) + ": " + e.toString());
 						stmt.setTimestamp(i + 1, e);
 					} else {
@@ -166,7 +166,7 @@ public class SqlserverDAO extends EasyDao {
 
 					ELString e = (ELString) fieldValue;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 
 						if (e.toString().getBytes().length <= LENGTHB) {
 							log.debug("prepared to set " + (i + 1) + ": " + e.toString());
@@ -175,7 +175,7 @@ public class SqlserverDAO extends EasyDao {
 							log.debug("prepared to set " + (i + 1) + ": " + e.toString().substring(0, LENGTHB / 4)
 									+ "...");
 
-							// ���ڳ���2K�ֽ����ҳ��ȵ��ַ�����������ʽд��, ����Oracle���ݿ��Ǳ������������
+							// 对于超过2K字节左右长度的字符串则用流方式写入, 对于Oracle数据库是必须这样处理的
 							Reader reader = new StringReader(e.toString());
 							stmt.setCharacterStream((i + 1), reader, e.length());
 						}
@@ -187,7 +187,7 @@ public class SqlserverDAO extends EasyDao {
 				} else if (fieldValue instanceof EFloat) {
 					EFloat e = (EFloat) fieldValue;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 						log.debug("prepared to set " + (i + 1) + ": " + e.floatValue());
 						stmt.setFloat(i + 1, e.floatValue());
 					} else {
@@ -198,9 +198,9 @@ public class SqlserverDAO extends EasyDao {
 				} else if (fieldValue instanceof EBinFile) {
 					EBinFile e = (EBinFile) fieldValue;
 
-					// ���ڷ�NULL���ļ�����, �ڹ���SQLʱ��
-					// �Ѿ�����ӦCLOB�ֶεĲ�����ʼ��ΪEMPTY_CLOB()��
-					// �����ڿյ��ļ����ͣ��ڴ���Ҫ����Ӧ�ֶ��ÿ�
+					// 对于非NULL的文件类型, 在构造SQL时，
+					// 已经将对应CLOB字段的参数初始化为EMPTY_CLOB()；
+					// 而对于空的文件类型，在此需要把相应字段置空
 					if (e.isEmpty()) {
 						log.debug("prepared to set " + (i + 1) + ": NULL");
 						stmt.setNull(i + 1, Types.BLOB);
@@ -208,9 +208,9 @@ public class SqlserverDAO extends EasyDao {
 				} else if (fieldValue instanceof ETxtFile) {
 					ETxtFile e = (ETxtFile) fieldValue;
 
-					// ���ڷ�NULL���ļ�����, �ڹ���SQLʱ��
-					// �Ѿ�����ӦCLOB�ֶεĲ�����ʼ��ΪEMPTY_CLOB()��
-					// �����ڿյ��ļ����ͣ��ڴ���Ҫ����Ӧ�ֶ��ÿգ�
+					// 对于非NULL的文件类型, 在构造SQL时，
+					// 已经将对应CLOB字段的参数初始化为EMPTY_CLOB()；
+					// 而对于空的文件类型，在此需要把相应字段置空；
 					if (e.isEmpty()) {
 						log.debug("prepared to set " + (i + 1) + ": NULL");
 						stmt.setNull(i + 1, Types.CLOB);
@@ -229,8 +229,8 @@ public class SqlserverDAO extends EasyDao {
 
 	/**
 	 * Set the parameter value to the '?' mark for parameterized sql.
-	 * 
-	 * 
+	 *
+	 *
 	 */
 	protected void fillParamToMark(PreparedStatement stmt, SqlParamMap map) throws DataAccessException,
 			IllegalParamException {
@@ -241,14 +241,14 @@ public class SqlserverDAO extends EasyDao {
 				Object obj = map.get(i);
 
 				if (obj == null) {
-					throw new IllegalParamException(IllegalParamException.NOT_INDEXED_PARAM, "ParameterMap�е�" + i
-							+ "��λ��û�в���ֵ!");
+					throw new IllegalParamException(IllegalParamException.NOT_INDEXED_PARAM, "ParameterMap中第" + i
+							+ "个位置没有参数值!");
 				}
 
 				if (obj instanceof EString) {
 					EString e = (EString) obj;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 
 						if (e.toString().getBytes().length <= LENGTHB) {
 							log.debug("prepared to set " + i + ": " + e.toString());
@@ -256,7 +256,7 @@ public class SqlserverDAO extends EasyDao {
 						} else {
 							log.debug("prepared to set " + i + ": " + e.toString().substring(0, LENGTHB / 4) + "...");
 
-							// ���ڳ���2K�ֽ����ҳ��ȵ��ַ�����������ʽд��, ����Oracle���ݿ��Ǳ������������
+							// 对于超过2K字节左右长度的字符串则用流方式写入, 对于Oracle数据库是必须这样处理的
 							Reader reader = new StringReader(e.toString());
 							stmt.setCharacterStream(i, reader, e.length());
 						}
@@ -274,7 +274,7 @@ public class SqlserverDAO extends EasyDao {
 					} else {
 						log.debug("prepared to set " + i + ": " + e.substring(0, LENGTHB / 4) + "...");
 
-						// ���ڳ���2K�ֽ����ҳ��ȵ��ַ�����������ʽд��, ����Oracle���ݿ��Ǳ������������
+						// 对于超过2K字节左右长度的字符串则用流方式写入, 对于Oracle数据库是必须这样处理的
 						Reader reader = new StringReader(e.toString());
 						stmt.setCharacterStream(i, reader, e.length());
 					}
@@ -282,7 +282,7 @@ public class SqlserverDAO extends EasyDao {
 				} else if (obj instanceof ELong) {
 					ELong e = (ELong) obj;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 						log.debug("prepared to set " + i + ": " + e.longValue());
 						stmt.setLong(i, e.longValue());
 					} else {
@@ -298,7 +298,7 @@ public class SqlserverDAO extends EasyDao {
 				} else if (obj instanceof EInteger) {
 					EInteger e = (EInteger) obj;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 						log.debug("prepared to set " + i + ": " + e.intValue());
 						stmt.setInt(i, e.intValue());
 					} else {
@@ -314,7 +314,7 @@ public class SqlserverDAO extends EasyDao {
 				} else if (obj instanceof EDouble) {
 					EDouble e = (EDouble) obj;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 						log.debug("prepared to set " + i + ": " + e.doubleValue());
 						stmt.setDouble(i, e.doubleValue());
 					} else {
@@ -330,7 +330,7 @@ public class SqlserverDAO extends EasyDao {
 				} else if (obj instanceof ETimestamp) {
 					ETimestamp e = (ETimestamp) obj;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 						log.debug("prepared to set " + i + ": " + e.toString());
 						stmt.setTimestamp(i, e);
 					} else {
@@ -341,7 +341,7 @@ public class SqlserverDAO extends EasyDao {
 				} else if (obj instanceof ELString) {
 					ELString e = (ELString) obj;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 
 						if (e.toString().getBytes().length <= LENGTHB) {
 							log.debug("prepared to set " + i + ": " + e.toString());
@@ -349,7 +349,7 @@ public class SqlserverDAO extends EasyDao {
 						} else {
 							log.debug("prepared to set " + i + ": " + e.toString().substring(0, LENGTHB / 4) + "...");
 
-							// ���ڳ���2K�ֽ����ҳ��ȵ��ַ�����������ʽд��, ����Oracle���ݿ��Ǳ������������
+							// 对于超过2K字节左右长度的字符串则用流方式写入, 对于Oracle数据库是必须这样处理的
 							Reader reader = new StringReader(e.toString());
 							stmt.setCharacterStream(i, reader, e.length());
 						}
@@ -371,7 +371,7 @@ public class SqlserverDAO extends EasyDao {
 				} else if (obj instanceof EFloat) {
 					EFloat e = (EFloat) obj;
 
-					if (!e.isEmpty()) {// ������ǿ�
+					if (!e.isEmpty()) {// 如果不是空
 						log.debug("prepared to set " + i + ": " + e.floatValue());
 						stmt.setFloat(i, ((EFloat) obj).floatValue());
 					} else {
@@ -389,9 +389,9 @@ public class SqlserverDAO extends EasyDao {
 				else if (obj instanceof EBinFile) {
 					EBinFile e = (EBinFile) obj;
 
-					// ���ڷ�NULL���ļ�����, �ڹ���SQLʱ��
-					// �Ѿ�����ӦCLOB�ֶεĲ�����ʼ��ΪEMPTY_CLOB()��
-					// �����ڿյ��ļ����ͣ��ڴ���Ҫ����Ӧ�ֶ��ÿ�
+					// 对于非NULL的文件类型, 在构造SQL时，
+					// 已经将对应CLOB字段的参数初始化为EMPTY_CLOB()；
+					// 而对于空的文件类型，在此需要把相应字段置空
 					if (e.isEmpty()) {
 						log.debug("prepared to set " + i + ": NULL");
 						stmt.setNull(i, Types.BLOB);
@@ -399,9 +399,9 @@ public class SqlserverDAO extends EasyDao {
 				} else if (obj instanceof ETxtFile) {
 					ETxtFile e = (ETxtFile) obj;
 
-					// ���ڷ�NULL���ļ�����, �ڹ���SQLʱ��
-					// �Ѿ�����ӦCLOB�ֶεĲ�����ʼ��ΪEMPTY_CLOB()��
-					// �����ڿյ��ļ����ͣ��ڴ���Ҫ����Ӧ�ֶ��ÿգ�
+					// 对于非NULL的文件类型, 在构造SQL时，
+					// 已经将对应CLOB字段的参数初始化为EMPTY_CLOB()；
+					// 而对于空的文件类型，在此需要把相应字段置空；
 					if (e.isEmpty()) {
 						log.debug("prepared to set " + i + ": NULL");
 						stmt.setNull(i, Types.CLOB);

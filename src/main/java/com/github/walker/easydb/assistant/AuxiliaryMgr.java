@@ -1,75 +1,71 @@
 package com.github.walker.easydb.assistant;
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
-
 /**
- * EasyDB�ĸ���������, Ŀǰֻ���ṩ����ļ����Ŀ¼�ķ���
- * 
+ * EasyDB的辅助管理器, 目前只是提供清空文件存放目录的方法
+ *
  * @author HuQingmiao
- * 
  */
 public class AuxiliaryMgr {
 
-	private static Logger log = LogFactory.getLogger(AuxiliaryMgr.class);
+    private static Logger log = LogFactory.getLogger(AuxiliaryMgr.class);
 
-	private AuxiliaryMgr() {
-	}
+    private AuxiliaryMgr() {
+    }
 
-	/**
-	 * ��ջ����ļ�Ŀ¼
-	 * 
-	 * @throws IOException
-	 * 
-	 */
-	public static void clearBaseFileDirc() {
+    /**
+     * 清空基本文件目录
+     *
+     * @throws IOException
+     */
+    public static void clearBaseFileDirc() {
 
-		// ȡ��ʱ�ļ�
-		String baseFileDirc = EasyConfig.getProperty("baseFileDirc");
-		File dirc = new File(baseFileDirc);
+        // 取临时文件
+        String baseFileDirc = EasyConfig.getProperty("baseFileDirc");
+        File dirc = new File(baseFileDirc);
 
-		// ���ɾ��
-		File[] files = dirc.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			files[i].delete();
-		}
-		log.info("Deleted All files in the base file dircotry. ");
-	}
+        // 逐个删除
+        File[] files = dirc.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            files[i].delete();
+        }
+        log.info("Deleted All files in the base file dircotry. ");
+    }
 
-	/**
-	 * ���ļ�ռ�õ��ܿռ�ﵽ����ָ�����ֽ���ʱ, ����ջ����ļ�Ŀ¼.
-	 * 
-	 * @param maxSpaceSize
-	 *            ��������ļ�Ŀ¼ռ�õ�����ֽ���
-	 * 
-	 * @throws IOException
-	 */
-	public static void clearBaseFileDirc(int maxSpaceSize) {
+    /**
+     * 当文件占用的总空间达到参数指定的字节数时, 才清空基本文件目录.
+     *
+     * @param maxSpaceSize 允许基本文件目录占用的最大字节数
+     * @throws IOException
+     */
+    public static void clearBaseFileDirc(int maxSpaceSize) {
 
-		// ȡ��ʱ�ļ�
-		String baseFileDirc = EasyConfig.getProperty("baseFileDirc");
-		File dirc = new File(baseFileDirc);
+        // 取临时文件
+        String baseFileDirc = EasyConfig.getProperty("baseFileDirc");
+        File dirc = new File(baseFileDirc);
 
-		// �����Ŀ¼�¸��ļ�ռ�õĿռ��С
-		File[] files = dirc.listFiles();
-		int size = 0;
-		for (int i = 0; i < files.length; i++) {
-			size += files[i].length();
-		}
+        // 计算该目录下各文件占用的空间大小
+        File[] files = dirc.listFiles();
+        int size = 0;
+        for (int i = 0; i < files.length; i++) {
+            size += files[i].length();
+        }
 
-		if (size >= maxSpaceSize) {
-			// ���ɾ��
-			for (int i = 0; i < files.length; i++) {
-				files[i].delete();
-			}
-		}
-		log.info("Deleted All files in the base file dircotry. ");
-	}
+        if (size >= maxSpaceSize) {
+            // 逐个删除
+            for (int i = 0; i < files.length; i++) {
+                files[i].delete();
+            }
+        }
+        log.info("Deleted All files in the base file dircotry. ");
+    }
 
-	public static void main(String[] args) {
-		clearBaseFileDirc(100000);
-	}
+    public static void main(String[] args) {
+        clearBaseFileDirc(100000);
+    }
 
 }

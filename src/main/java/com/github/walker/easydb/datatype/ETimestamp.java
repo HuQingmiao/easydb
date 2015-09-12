@@ -5,66 +5,56 @@ import java.sql.Timestamp;
 import com.github.walker.easydb.assistant.DateTimeUtil;
 
 /**
- * ����ʱ����, �̳���java.sql.Timestamp�ಢʵ����UpdateIdentifier�ӿ�.
- * 
+ * 日期时间类, 继承了java.sql.Timestamp类并实现了UpdateIdentifier接口.
+ *
  * @author HuQingmiao
- *  
  */
 @SuppressWarnings("serial")
 public class ETimestamp extends java.sql.Timestamp implements UpdateIdentifier {
 
-    //��ʶ�Ƿ�Ѷ�Ӧ�и���
+    //标识是否把对应列更新
     private boolean needUpdate = false;
 
-    //��ʶ�Ƿ�Ѷ�Ӧ���ÿ�
+    //标识是否把对应列置空
     private boolean isEmpty = false;
 
     /**
-     * �����ӣ������������ʱ���������Ӧ���н�������ΪNULL.
-     * 
+     * 构造子，其产生的日期时间对象所对应的列将被更新为NULL.
+     * <p/>
      * Constructor, produce a null instance.
-     *  
      */
     public ETimestamp() {
-        super(DateTimeUtil.parse("0001-01-01", "yyyy-MM-dd").getTime());//���������
-        this.isEmpty = true; //�ÿ�
-        this.needUpdate = true; //Ҫ����
+        super(DateTimeUtil.parse("0001-01-01", "yyyy-MM-dd").getTime());//象征性语句
+        this.isEmpty = true; //置空
+        this.needUpdate = true; //要更新
     }
 
     /**
-     * 
      * Constructs a ETimestamp object using a milliseconds time value.
-     * 
-     * @param time
-     *            milliseconds since January 1, 1970, 00:00:00 GMT. A negative
-     *            number is the number of milliseconds before January 1, 1970,
-     *            00:00:00 GMT.
-     * 
-     * 
+     *
+     * @param time milliseconds since January 1, 1970, 00:00:00 GMT. A negative
+     *             number is the number of milliseconds before January 1, 1970,
+     *             00:00:00 GMT.
      * @see java.sql.Timestamp#Timestamp(long)
-     *  
      */
     public ETimestamp(long time) {
         super(time);
-        this.isEmpty = false; //�ǿ�
-        this.needUpdate = true; //Ҫ����
+        this.isEmpty = false; //非空
+        this.needUpdate = true; //要更新
     }
 
     /**
-     * 
      * Constructs a ETimestamp object using a Timestamp object.
-     * 
-     * 
      */
     public ETimestamp(Timestamp timestamp) {
         super(timestamp.getTime());
-        this.isEmpty = false; //�ǿ�
-        this.needUpdate = true; //Ҫ����
+        this.isEmpty = false; //非空
+        this.needUpdate = true; //要更新
     }
 
     /**
-     * �����Ƿ�Ѷ�Ӧ�и���;
-     * 
+     * 设置是否把对应列更新;
+     *
      * @param flag
      */
     public void setUpdate(boolean flag) {
@@ -73,27 +63,25 @@ public class ETimestamp extends java.sql.Timestamp implements UpdateIdentifier {
     }
 
     /**
-     * ֻ�е��˷�������trueʱ, �־û������Ż���¶�Ӧ��.
-     *  
+     * 只有当此方法返回true时, 持久化动作才会更新对应列.
      */
     public boolean needUpdate() {
         return this.needUpdate;
     }
 
     /**
-     * �ж�����ֵ�Ƿ�Ϊnull, �Ծ����Ƿ�Ӧ�ý���Ӧ����null
-     *  
+     * 判断属性值是否为null, 以决定是否应该将对应列置null
      */
     public boolean isEmpty() {
         return this.isEmpty;
     }
-    
-    
-    public String toString(){
-        if(!this.isEmpty()){
+
+
+    public String toString() {
+        if (!this.isEmpty()) {
             return super.toString();
         }
-        
+
         return "";
     }
 }

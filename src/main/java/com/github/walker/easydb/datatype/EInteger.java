@@ -3,26 +3,22 @@ package com.github.walker.easydb.datatype;
 import java.io.Serializable;
 
 /**
- * EInteger��, �ṩ��Integer��Ĺ��ܲ�ʵ����UpdateIdentifier�ӿ�.
- * 
- * 
- * @see UpdateIdentifier
- * 
+ * EInteger类, 提供了Integer类的功能并实现了UpdateIdentifier接口.
+ *
  * @author Huqingmiao
- *  
+ * @see UpdateIdentifier
  */
 
-@SuppressWarnings({ "rawtypes", "serial" })
-public class EInteger extends Number implements UpdateIdentifier, Serializable,Comparable {
+@SuppressWarnings({"rawtypes", "serial"})
+public class EInteger extends Number implements UpdateIdentifier, Serializable, Comparable {
 
     private Integer aInteger = null;
 
-    //��ʶ�Ƿ�Ѷ�Ӧ�и���
+    //标识是否把对应列更新
     private boolean needUpdate = false;
 
     /**
-     * �����ӣ��䴴���Ķ�������Ӧ���н�������ΪNULL
-     *  
+     * 构造子，其创建的对象所对应的列将被更新为NULL
      */
     public EInteger() {
         this.aInteger = null;
@@ -30,9 +26,7 @@ public class EInteger extends Number implements UpdateIdentifier, Serializable,C
     }
 
     /**
-     * 
-     * �����ӣ��䴴���Ķ��󽫱�Ĭ����Ҫ�������ݿ�.
-     *  
+     * 构造子，其创建的对象将被默认需要更到数据库.
      */
     public EInteger(int i) {
         this.aInteger = new Integer(i);
@@ -40,9 +34,7 @@ public class EInteger extends Number implements UpdateIdentifier, Serializable,C
     }
 
     /**
-     * 
-     * �����ӣ��䴴���Ķ��󽫱�Ĭ����Ҫ�������ݿ�.
-     *  
+     * 构造子，其创建的对象将被默认需要更到数据库.
      */
     public EInteger(String s) {
         this.aInteger = new Integer(s);
@@ -50,8 +42,6 @@ public class EInteger extends Number implements UpdateIdentifier, Serializable,C
     }
 
 
-
-    
     public int compareTo(Object o) {
         if (this.aInteger != null) {
             if (o instanceof Integer) {
@@ -61,24 +51,20 @@ public class EInteger extends Number implements UpdateIdentifier, Serializable,C
             }
         }
         return 0;
-	}
-    
+    }
 
 
     /**
-     * 
-     * ����Integer���͵�����
-     *  
+     * 返回Integer类型的数据
      */
     public Integer toInteger() {
         return this.aInteger;
     }
 
     /**
-     * 
      * Returns a string representation of this Double object.
-     * 
-     * @see java.lang.Integer#toString() 
+     *
+     * @see java.lang.Integer#toString()
      */
     public String toString() {
         if (!this.isEmpty()) {
@@ -88,7 +74,6 @@ public class EInteger extends Number implements UpdateIdentifier, Serializable,C
     }
 
     /**
-     * 
      * @see java.lang.Integer#doubleValue()
      */
     public double doubleValue() {
@@ -96,7 +81,6 @@ public class EInteger extends Number implements UpdateIdentifier, Serializable,C
     }
 
     /**
-     * 
      * @see java.lang.Integer#floatValue()
      */
     public float floatValue() {
@@ -104,7 +88,6 @@ public class EInteger extends Number implements UpdateIdentifier, Serializable,C
     }
 
     /**
-     * 
      * @see java.lang.Integer#intValue()
      */
     public int intValue() {
@@ -112,7 +95,6 @@ public class EInteger extends Number implements UpdateIdentifier, Serializable,C
     }
 
     /**
-     * 
      * @see java.lang.Integer#longValue()
      */
     public long longValue() {
@@ -120,8 +102,8 @@ public class EInteger extends Number implements UpdateIdentifier, Serializable,C
     }
 
     /**
-     * �����Ƿ�Ѷ�Ӧ�и���;
-     * 
+     * 设置是否把对应列更新;
+     *
      * @param flag
      */
     public void setUpdate(boolean flag) {
@@ -130,29 +112,27 @@ public class EInteger extends Number implements UpdateIdentifier, Serializable,C
     }
 
     /**
-     * ֻ�е��˷�������trueʱ, �־û������Ż���¶�Ӧ��.
-     *  
+     * 只有当此方法返回true时, 持久化动作才会更新对应列.
      */
     public boolean needUpdate() {
         return this.needUpdate;
     }
 
     /**
-     *�ж�����ֵ�Ƿ�Ϊnull, �Ծ����Ƿ�Ӧ�ý���Ӧ����null
-     * 
+     * 判断属性值是否为null, 以决定是否应该将对应列置null
      */
     public boolean isEmpty() {
         return this.aInteger == null;
     }
-    
+
     public boolean equals(EInteger ei) {
-                
+
         if (this.aInteger != null) {
             return this.aInteger.equals(ei.toInteger());
-        }else{
-            if(ei==null){
+        } else {
+            if (ei == null) {
                 return true;
-            } 
+            }
             return false;
         }
     }

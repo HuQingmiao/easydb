@@ -3,26 +3,22 @@ package com.github.walker.easydb.datatype;
 import java.io.Serializable;
 
 /**
- * EDouble��, �ṩ��Double��Ĺ��ܲ�ʵ����UpdateIdentifier�ӿ�.
- * 
- * 
- * @see UpdateIdentifier
- * 
+ * EDouble类, 提供了Double类的功能并实现了UpdateIdentifier接口.
+ *
  * @author Huqingmiao
- *  
+ * @see UpdateIdentifier
  */
-@SuppressWarnings({ "rawtypes", "serial" })
+@SuppressWarnings({"rawtypes", "serial"})
 public class EDouble extends Number implements UpdateIdentifier, Serializable, Comparable {
 
-	
+
     private Double aDouble = null;
 
-    //��ʶ�Ƿ�Ѷ�Ӧ�и���
+    //标识是否把对应列更新
     private boolean needUpdate = false;
 
     /**
-     * �����ӣ��䴴���Ķ�������Ӧ���н�������ΪNULL
-     *  
+     * 构造子，其创建的对象所对应的列将被更新为NULL
      */
     public EDouble() {
         this.aDouble = null;
@@ -30,9 +26,7 @@ public class EDouble extends Number implements UpdateIdentifier, Serializable, C
     }
 
     /**
-     * 
-     * �����ӣ��䴴���Ķ��󽫱�Ĭ����Ҫ�������ݿ�.
-     *  
+     * 构造子，其创建的对象将被默认需要更到数据库.
      */
     public EDouble(double d) {
         this.aDouble = new Double(d);
@@ -40,15 +34,13 @@ public class EDouble extends Number implements UpdateIdentifier, Serializable, C
     }
 
     /**
-     * 
-     * �����ӣ��䴴���Ķ��󽫱�Ĭ����Ҫ�������ݿ�.
-     *  
+     * 构造子，其创建的对象将被默认需要更到数据库.
      */
     public EDouble(String s) {
         this.aDouble = new Double(s);
         this.needUpdate = true;
     }
-    
+
 
     public int compareTo(Object o) {
         if (this.aDouble != null) {
@@ -62,11 +54,8 @@ public class EDouble extends Number implements UpdateIdentifier, Serializable, C
     }
 
 
-
     /**
-     * 
-     * ����Double���͵�����
-     *  
+     * 返回Double类型的数据
      */
     public Double toDouble() {
         return this.aDouble;
@@ -74,11 +63,9 @@ public class EDouble extends Number implements UpdateIdentifier, Serializable, C
 
 
     /**
-     * 
      * Returns a string representation of this Double object.
-     * 
-     * @see java.lang.Double#toString() 
-     *  
+     *
+     * @see java.lang.Double#toString()
      */
     public String toString() {
         if (!this.isEmpty()) {
@@ -88,7 +75,6 @@ public class EDouble extends Number implements UpdateIdentifier, Serializable, C
     }
 
     /**
-     * 
      * @see java.lang.Double#doubleValue()
      */
     public double doubleValue() {
@@ -96,7 +82,6 @@ public class EDouble extends Number implements UpdateIdentifier, Serializable, C
     }
 
     /**
-     * 
      * @see java.lang.Double#floatValue()
      */
     public float floatValue() {
@@ -104,7 +89,6 @@ public class EDouble extends Number implements UpdateIdentifier, Serializable, C
     }
 
     /**
-     * 
      * @see java.lang.Double#intValue()
      */
     public int intValue() {
@@ -112,17 +96,16 @@ public class EDouble extends Number implements UpdateIdentifier, Serializable, C
     }
 
     /**
-     * 
      * @see java.lang.Double#longValue()
      */
     public long longValue() {
         return this.aDouble.longValue();
     }
-    
-    
+
+
     /**
-     * �����Ƿ�Ѷ�Ӧ�и���;
-     * 
+     * 设置是否把对应列更新;
+     *
      * @param flag
      */
     public void setUpdate(boolean flag) {
@@ -131,29 +114,27 @@ public class EDouble extends Number implements UpdateIdentifier, Serializable, C
     }
 
     /**
-     * ֻ�е��˷�������trueʱ, �־û������Ż���¶�Ӧ��.
-     *  
+     * 只有当此方法返回true时, 持久化动作才会更新对应列.
      */
     public boolean needUpdate() {
         return this.needUpdate;
     }
 
     /**
-     *�ж�����ֵ�Ƿ�Ϊnull, �Ծ����Ƿ�Ӧ�ý���Ӧ����null
-     * 
+     * 判断属性值是否为null, 以决定是否应该将对应列置null
      */
     public boolean isEmpty() {
         return this.aDouble == null;
     }
 
     public boolean equals(EDouble ed) {
-  
+
         if (this.aDouble != null) {
             return this.aDouble.equals(ed.toDouble());
-        }else{
-            if(ed==null){
+        } else {
+            if (ed == null) {
                 return true;
-            } 
+            }
             return false;
         }
     }

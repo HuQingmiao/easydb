@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
 
+import com.github.walker.easydb.datatype.ETxtFile;
 import com.github.walker.easydb.assistant.MappingUtil;
 import com.github.walker.easydb.criterion.Criteria;
 import com.github.walker.easydb.dao.EntityParser;
@@ -12,21 +13,20 @@ import com.github.walker.easydb.dao.FieldExp;
 import com.github.walker.easydb.dao.SqlConstructor;
 import com.github.walker.easydb.dao.SqlParamIndexer;
 import com.github.walker.easydb.datatype.EBinFile;
-import com.github.walker.easydb.datatype.ETxtFile;
 import com.github.walker.easydb.datatype.UpdateIdentifier;
 import com.github.walker.easydb.exception.IllegalEntityException;
 import com.github.walker.easydb.exception.IllegalParamException;
 
 /**
- * 
+ *
  * The sqlserver version of sql constructor.
- * 
+ *
  * @author HuQingmiao
- * 
+ *
  */
 public class SqlserverSqlConstructor extends SqlConstructor {
 
-	// // ���¹ؼ�����EasyDBר�õ�, �ڿͻ��������SQL�в���ʹ��.
+	// // 以下关键字是EasyDB专用的, 在客户程序传入的SQL中不得使用.
 	// private static final String EASYDB_PAGER_ROW = "EASYDB_PAGER_ROW";
 	//
 	// private static final String EASYDB_A = "EASYDB_A";
@@ -49,13 +49,13 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 		StringBuffer forePart = new StringBuffer();// the fore part of the sql
 		StringBuffer backPart = new StringBuffer();// the back part of the sql
 
-		// �ȴ����µ�����
+		// 等待更新的属性
 		HashMap<String, FieldExp> fieldExpMap = entityParser.getFieldExpMap();
 
-		// ���ÿյĴ��ֶ�����
+		// 非置空的大字段属性
 		HashSet<String> bigFieldNameSet = entityParser.getBigFieldNameSet();
 
-		// ��'?'��values�Ӿ��е��Ⱥ�˳��洢��Ӧ������
+		// 按'?'在values子句中的先后顺序存储对应属性名
 		Vector<String> valuesParamVec = new Vector<String>(10);
 
 		boolean hasValue = false;
@@ -66,12 +66,12 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 			String columnName = MappingUtil.getColumnName(fieldName);
 			forePart.append(columnName + ',');
 
-			// ����������Ƿ��ÿյ��ļ�����
+			// 如果此属性是非置空的文件类型
 			if (bigFieldNameSet.contains(fieldName)) {
 				FieldExp fieldExp = (FieldExp) fieldExpMap.get(fieldName);
 				UpdateIdentifier idFieldValue = (UpdateIdentifier) fieldExp.getFieldValue();
 
-				// ����BLOB/CLOB���͵��ֶΣ� д��ǰ��Ҫ�����ʼ��
+				// 对于BLOB/CLOB类型的字段， 写入前需要对其初始化
 				if (idFieldValue instanceof EBinFile) {
 					backPart.append("EMPTY_BLOB(),");
 				} else if (idFieldValue instanceof ETxtFile) {
@@ -106,28 +106,28 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 
 	public SqlParamIndexer buildUpdateByPk(EntityParser entityParser) throws IllegalParamException,
 			IllegalEntityException {
-		// update�Ӿ�
+		// update子句
 		StringBuffer update = new StringBuffer("UPDATE ");
 		update.append(MappingUtil.getTableName(entityParser.getClassName()));
 		update.append(" SET ");
 
-		// where�Ӿ�
+		// where子句
 		StringBuffer where = new StringBuffer(" WHERE 1=1");
 
-		// �ȴ����µ�����
+		// 等待更新的属性
 		HashMap<String, FieldExp> fieldExpMap = entityParser.getFieldExpMap();
 
-		// ��������
+		// 主键属性
 		HashSet<String> pkSet = entityParser.getPKSet();
 
 		if (pkSet.isEmpty()) {
 			throw new IllegalEntityException(IllegalEntityException.NOT_SPECIFY_PK, "");
 		}
 
-		// ���ÿյĴ��ֶ�����
+		// 非置空的大字段属性
 		HashSet<String> bigFieldNameSet = entityParser.getBigFieldNameSet();
 
-		// ��'?'��SQL�е��Ⱥ�˳��洢��Ӧ������
+		// 按'?'在SQL中的先后顺序存储对应属性名
 		Vector<String> indexedParamVec = new Vector<String>(12);
 
 		boolean hasUpdateValue = false;
@@ -136,16 +136,16 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 			String fieldName = (String) it.next();
 			String columnName = MappingUtil.getColumnName(fieldName);
 
-			// ���������������
+			// 如果不是主键属性
 			if (!pkSet.contains(fieldName)) {
 				update.append(columnName);
 
-				// ����������Ƿ��ÿյ��ļ�����, ���ʼ��
+				// 如果此属性是非置空的文件类型, 则初始化
 				if (bigFieldNameSet.contains(fieldName)) {
 					FieldExp fieldExp = (FieldExp) fieldExpMap.get(fieldName);
 					UpdateIdentifier idFieldValue = (UpdateIdentifier) fieldExp.getFieldValue();
 
-					// ����BLOB/CLOB���͵��ֶΣ� д��ǰ��Ҫ�����ʼ��
+					// 对于BLOB/CLOB类型的字段， 写入前需要对其初始化
 					if (idFieldValue instanceof EBinFile) {
 						update.append("=EMPTY_BLOB(),");
 					} else if (idFieldValue instanceof ETxtFile) {
@@ -159,14 +159,14 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 				hasUpdateValue = true;
 			}
 		}
-		// û��Ҫ���µ�����
+		// 没有要更新的属性
 		if (!hasUpdateValue) {
 			throw new IllegalParamException(IllegalParamException.ENTITY_NOVALUE, "");
 		}
-		// ɾ������','
+		// 删除最后的','
 		update.deleteCharAt(update.length() - 1);
 
-		// ������Ϊ��������
+		// 以主键为更新条件
 		boolean hasPkValue = false;
 		for (Iterator<String> it = pkSet.iterator(); it.hasNext();) {
 			String fieldName = (String) it.next();
@@ -180,7 +180,7 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 			hasPkValue = true;
 		}
 
-		// û���ҵ�����ֵ
+		// 没有找到主键值
 		if (!hasPkValue) {
 			throw new IllegalParamException(IllegalParamException.NOVALUE_FOR_ENTITY_PK, "");
 		}
@@ -198,13 +198,13 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 		sql.append(MappingUtil.getTableName(entityParser.getClassName()));
 		sql.append(" SET ");
 
-		// �ȴ����µ�����
+		// 等待更新的属性
 		HashMap<String, FieldExp> fieldExpMap = entityParser.getFieldExpMap();
 
-		// ���ÿյĴ��ֶ�����
+		// 非置空的大字段属性
 		HashSet<String> bigFieldNameSet = entityParser.getBigFieldNameSet();
 
-		// ��'?'��SQL�е��Ⱥ�˳��洢��Ӧ������
+		// 按'?'在SQL中的先后顺序存储对应属性名
 		Vector<String> indexedParamVec = new Vector<String>(12);
 
 		boolean hasUpdateValue = false;
@@ -214,13 +214,13 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 			String columnName = MappingUtil.getColumnName(fieldName);
 			sql.append(columnName);
 
-			// ����������Ƿ��ÿյ��ļ�����
+			// 如果此属性是非置空的文件类型
 			if (bigFieldNameSet.contains(fieldName)) {
 
 				FieldExp fieldExp = (FieldExp) fieldExpMap.get(fieldName);
 				UpdateIdentifier idFieldValue = (UpdateIdentifier) fieldExp.getFieldValue();
 
-				// ����BLOB/CLOB���͵��ֶΣ� д��ǰ��Ҫ�����ʼ��
+				// 对于BLOB/CLOB类型的字段， 写入前需要对其初始化
 				if (idFieldValue instanceof EBinFile) {
 					sql.append("=EMPTY_BLOB(),");
 				} else if (idFieldValue instanceof ETxtFile) {
@@ -234,14 +234,14 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 			}
 			hasUpdateValue = true;
 		}
-		// û��Ҫ���µ�����
+		// 没有要更新的属性
 		if (!hasUpdateValue) {
 			throw new IllegalParamException(IllegalParamException.ENTITY_NOVALUE, "");
 		}
-		// ɾ������','
+		// 删除最后的','
 		sql.deleteCharAt(sql.length() - 1);
 
-		// �Բ���CriteriaΪ��������
+		// 以参数Criteria为更新条件
 		String c = criteria.toString().trim();
 		if (!"".equals(c)) {
 			// build the where clause
@@ -254,14 +254,14 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 
 	/**
 	 * Builds the pager sql by decorating the common business logic sql.
-	 * 
+	 *
 	 * @param originSql
 	 *            the common business logic sql
 	 * @param start
 	 *            starting position in searching records
 	 * @param end
 	 *            end position of in searching records
-	 * 
+	 *
 	 * @return
 	 */
 	public String buildPageSql(String originSql, int startPos, int endPos) {
@@ -271,9 +271,9 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 
 	/**
 	 * Builds the sql for retrieveing the column meta of the table.
-	 * 
+	 *
 	 * @param tableName
-	 * 
+	 *
 	 * @return the sql
 	 */
 	public String buildGettingMetaSql(String tableName) {
@@ -286,17 +286,17 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 
 	/**
 	 * Builds the sql which calculate the total records of pager query.
-	 * 
+	 *
 	 * @param originSql
 	 *            the common business logic sql
-	 * 
+	 *
 	 * @return
 	 */
 	public String buildCountSql(String originSql) {
 
 		final String orderBy = " ORDER BY ";
 
-		// ȥ��ORDER BY �Ӿ�
+		// 去掉ORDER BY 子句
 		int orderPosi = originSql.indexOf(orderBy);
 		if (orderPosi > 0) {
 			originSql = originSql.substring(0, orderPosi);
@@ -309,7 +309,7 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 		return countSql.toString();
 	}
 
-	// // ���Դ�Сд, ����baseStr�д�λ��startPos��endPos���Ӵ�, ���Ƿ�����Ӵ�indexedStr. ���ص�һ��ƥ���λ��.
+	// // 忽略大小写, 检索baseStr中从位置startPos至endPos的子串, 看是否存在子串indexedStr. 返回第一次匹配的位置.
 	// private int indexIgloreCase(String baseStr, String indexedStr, int
 	// startPos, int endPos) {
 	//
@@ -328,10 +328,10 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 	// }
 
 	// /**
-	// * ȥ�����������м���ַ�
+	// * 去掉左右括号中间的字符
 	// *
 	// * @param str
-	// * �������ű���ɶԳ��ֵ��ַ���
+	// * 左右括号必须成对出现的字符串
 	// */
 	// private String trimBracket(String colstr) {
 	//
@@ -342,10 +342,10 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 	// }
 	//
 	// StringBuffer buff = new StringBuffer(str);
-	// buff.deleteCharAt(i);// ɾ�����ֵĵ�һ��'(', ��ʱiָ��'('������Ǹ��ַ�
+	// buff.deleteCharAt(i);// 删除出现的第一个'(', 此时i指向'('后面的那个字符
 	//
-	// int leftCnt = 1;// ���ֵ���������
-	// int rightCnt = 0;// ���ֵ���������
+	// int leftCnt = 1;// 出现的左括号数
+	// int rightCnt = 0;// 出现的右括号数
 	//
 	// while (i < buff.length() && rightCnt < leftCnt) {
 	// char ch = buff.charAt(i);

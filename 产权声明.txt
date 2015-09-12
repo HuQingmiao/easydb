@@ -2,4 +2,3 @@
 
 2. 本软件是指 "EasyDB.rar" 解压包中除log4j,JDBC驱动包之外的所有文件.
 
-3. 任何人在使用本软件前，必须经过 胡庆妙(Walker/HuQingmiao) 的许可.

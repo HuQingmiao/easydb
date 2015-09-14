@@ -47,9 +47,8 @@ public class DemoBuiness {
 	public void clearTestData() throws Exception {
 	    log.info("\nclearTestData()>>>>>>>>>>>>>>>>>>>>");
 
-		dao.beginTrans(); // ��������
-		boolean commit = false;// ����ִ�гɹ��ı�ʶ
-
+		dao.beginTrans(); // 开启事务
+		boolean commit = false;
 		try {				    
 			dao.deleteAll(Book.class);
 
@@ -59,7 +58,6 @@ public class DemoBuiness {
 
 			// ���Ŵ˴���, ��ͼɾ��һ�������ڵı�, ���׳��쳣���������񽫻ع�
 			// dao.deleteAll(Boek.class);
-
 
 			commit = true;// ��ʶ����ɹ�ִ��
 
@@ -76,25 +74,13 @@ public class DemoBuiness {
 	public void addOneBook() throws Exception {
 	    log.info("\naddOneBook()>>>>>>>>>>>>>>>>>>>>");
 
-	    
-	    
-		 StringBuilder sb = new StringBuilder();
-		 String s = "����";
-		 for (int i = 0; i < 500; i++) {
-		 sb.append(s);
-		 }
-		
-		 System.out.println(sb.toString().length());
-		 
-		 System.out.println(sb.toString().getBytes().length);
-	    
 		dao.beginTrans(); // ��������
 		boolean commit = false;// ����ִ�гɹ��ı�ʶ
 		try {
 			Book book = new Book();
 			book = new Book();
 			book.setBookId(new ELong(1));
-			book.setTitle(new EString(sb.toString()));
+			book.setTitle(new EString("美国人民的生活"));
 			book.setCost(new EFloat(30.0f));
 			book.setPublishTime(new ETimestamp(DateTimeUtil.getCurrentTime()));
 			// ���Ŵ˴���, ��ͼ��һ�������ڵ��ļ�д�����ݿ�, ���׳��쳣

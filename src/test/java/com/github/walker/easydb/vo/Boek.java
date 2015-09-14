@@ -1,72 +1,81 @@
-package com.github.walker.easydb;
+package com.github.walker.easydb.vo;
 
 import com.github.walker.easydb.dao.BaseEntity;
 import com.github.walker.easydb.datatype.EBinFile;
 import com.github.walker.easydb.datatype.EFloat;
+import com.github.walker.easydb.datatype.ELong;
 import com.github.walker.easydb.datatype.EString;
+import com.github.walker.easydb.datatype.ETimestamp;
 import com.github.walker.easydb.datatype.ETxtFile;
 
 /**
- * 
- * ĳ��ѯ��ͼ��Ӧ��ʵ��
- * 
+ * 映射名称有误的BOOK实体
+ *
  * @author HuQingmiao
- *  
  */
 @SuppressWarnings("serial")
-public class EditorAndBook extends BaseEntity {
+public class Boek extends BaseEntity {
 
-    private EString editorName; //��������
+    private ELong bookId;
 
-    private EString editorSex;  //�����Ա�
+    private EString title;
 
-    private EString title;	   //��������
+    private EFloat cost;
 
-    private EFloat cost; 	   //���
+    private ETimestamp publishTime;
 
-    private EBinFile blobContent;//�������
-    
+    private EBinFile blobContent;
+
     private ETxtFile textContent;
 
-    
-    //������
     public String[] pk() {
-        return null;
+        return new String[]{"bookId"};
     }
-    
+
     public EBinFile getBlobContent() {
         return blobContent;
     }
+
     public void setBlobContent(EBinFile blobContent) {
         this.blobContent = blobContent;
     }
+
+    public ELong getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(ELong bookId) {
+        this.bookId = bookId;
+    }
+
     public EFloat getCost() {
         return cost;
     }
+
     public void setCost(EFloat cost) {
         this.cost = cost;
     }
-    public EString getEditorName() {
-        return editorName;
+
+    public ETimestamp getPublishTime() {
+        return publishTime;
     }
-    public void setEditorName(EString editorName) {
-        this.editorName = editorName;
+
+    public void setPublishTime(ETimestamp publishTime) {
+        this.publishTime = publishTime;
     }
-    public EString getEditorSex() {
-        return editorSex;
-    }
-    public void setEditorSex(EString editorSex) {
-        this.editorSex = editorSex;
-    }
+
     public ETxtFile getTextContent() {
         return textContent;
     }
+
     public void setTextContent(ETxtFile textContent) {
         this.textContent = textContent;
     }
+
     public EString getTitle() {
         return title;
     }
+
     public void setTitle(EString title) {
         this.title = title;
     }

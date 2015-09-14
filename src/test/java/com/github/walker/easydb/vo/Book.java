@@ -1,4 +1,4 @@
-package com.github.walker.easydb;
+package com.github.walker.easydb.vo;
 
 import com.github.walker.easydb.dao.BaseEntity;
 import com.github.walker.easydb.datatype.EBinFile;
@@ -9,13 +9,12 @@ import com.github.walker.easydb.datatype.ETimestamp;
 import com.github.walker.easydb.datatype.ETxtFile;
 
 /**
- * BOOKʵ��
- * 
+ * BOOK实体
+ *
  * @author HuQingmiao
- *  
  */
 @SuppressWarnings("serial")
-public class Boek extends BaseEntity {
+public class Book extends BaseEntity {
 
     private ELong bookId;
 
@@ -28,9 +27,12 @@ public class Boek extends BaseEntity {
     private EBinFile blobContent;
 
     private ETxtFile textContent;
-    
+
+    // 不存在的列
+    private EString aNotExistCol;
+
     public String[] pk() {
-        return new String[] { "bookId" };
+        return new String[]{"bookId"};
     }
 
     public EBinFile getBlobContent() {
@@ -53,6 +55,14 @@ public class Boek extends BaseEntity {
         return cost;
     }
 
+    public EString getTitle() {
+        return title;
+    }
+
+    public void setTitle(EString title) {
+        this.title = title;
+    }
+
     public void setCost(EFloat cost) {
         this.cost = cost;
     }
@@ -73,11 +83,11 @@ public class Boek extends BaseEntity {
         this.textContent = textContent;
     }
 
-    public EString getTitle() {
-        return title;
+    public EString getaNotExistCol() {
+        return aNotExistCol;
     }
 
-    public void setTitle(EString title) {
-        this.title = title;
+    public void setaNotExistCol(EString aNotExistCol) {
+        this.aNotExistCol = aNotExistCol;
     }
 }

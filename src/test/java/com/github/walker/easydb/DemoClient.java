@@ -17,7 +17,7 @@ public class DemoClient {
 
 	public static void main(String[] args) {
 
-		DemoBuiness app = new DemoBuiness();
+		DemoService app = new DemoService();
 
 		try {
 			app.prepareTest();
@@ -38,13 +38,7 @@ public class DemoClient {
 			app.updateMulitBooks();
 			app.showAllBooks();
 
-			app.updateBookByCriteria();
-			app.showAllBooks();
-
 			app.deleteOneBook();
-			app.showAllBooks();
-
-			app.deleteMulitBooks2();
 			app.showAllBooks();
 
 			app.deleteBookByCriteria();
@@ -53,17 +47,9 @@ public class DemoClient {
 			app.nestedTransaction();
 
 			app.getEditorAndBookByPager();
-			app.getEditorAndBookByPager2();
 
 			app.getOneBook();
-			app.addMultiBooks2();
 
-			app.showAllBooks();
-
-			app.finalTest();
-
-			app.showAllBooks();
-			
 			app.clearTestData();
 			app.endTest();
 

@@ -242,9 +242,11 @@ public abstract class BaseEntity implements Serializable {
      */
     public Object get(String propertyName) throws BaseException {
 
-        String methodName = "get"
-                + Character.toUpperCase(propertyName.charAt(0))
-                + propertyName.substring(1);
+        String firstChar = propertyName.substring(0, 1).toUpperCase();
+        if (propertyName.length() > 1 && Character.isUpperCase(propertyName.charAt(1))) {
+            firstChar = firstChar.toLowerCase();
+        }
+        String methodName = "get" + firstChar + propertyName.substring(1);
 
         try {
             //builds the method name, such as: "getXX"
@@ -283,9 +285,11 @@ public abstract class BaseEntity implements Serializable {
      */
     public void set(String propertyName, Object value) throws BaseException {
 
-        String methodName = "set"
-                + Character.toUpperCase(propertyName.charAt(0))
-                + propertyName.substring(1);
+        String firstChar = propertyName.substring(0, 1).toUpperCase();
+        if (propertyName.length() > 1 && Character.isUpperCase(propertyName.charAt(1))) {
+            firstChar = firstChar.toLowerCase();
+        }
+        String methodName = "set" + firstChar + propertyName.substring(1);
 
         try {
             Method method = this.getClass().getMethod(methodName,

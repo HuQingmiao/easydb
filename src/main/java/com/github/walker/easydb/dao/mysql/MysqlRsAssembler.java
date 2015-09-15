@@ -66,37 +66,37 @@ class MysqlRsAssembler extends ResultAssembler {
                     Method method = mdExp.getMethod();
                     String paraType = mdExp.getParamType();
 
-                    if ("walker.easydb.datatype.EString".equals(paraType)) {
+                    if (paraType.endsWith(".EString")) {
                         String v = rs.getString(col);
                         EString ev = (v == null) ? new EString() : new EString(v);
                         method.invoke(entity, new Object[]{ev});
-
-                    } else if ("walker.easydb.datatype.ELong".equals(paraType)) {
+                    }
+                    else if (paraType.endsWith(".ELong")) {
                         String v = rs.getString(col);
                         ELong ev = (v == null) ? new ELong() : new ELong(rs.getLong(col));
                         method.invoke(entity, new Object[]{ev});
 
-                    } else if ("walker.easydb.datatype.EInteger".equals(paraType)) {
+                    }  else if (paraType.endsWith(".EInteger")) {
                         String v = rs.getString(col);
                         EInteger ev = (v == null) ? new EInteger() : new EInteger(rs.getInt(col));
                         method.invoke(entity, new Object[]{ev});
 
-                    } else if ("walker.easydb.datatype.EDouble".equals(paraType)) {
+                    }  else if (paraType.endsWith(".EDouble")) {
                         String v = rs.getString(col);
                         EDouble ev = (v == null) ? new EDouble() : new EDouble(rs.getDouble(col));
                         method.invoke(entity, new Object[]{ev});
 
-                    } else if ("walker.easydb.datatype.ETimestamp".equals(paraType)) {
+                    }  else if (paraType.endsWith(".ETimestamp")) {
                         Timestamp v = rs.getTimestamp(col);
                         ETimestamp ev = (v == null) ? new ETimestamp() : new ETimestamp(v.getTime());
                         method.invoke(entity, new Object[]{ev});
 
-                    } else if ("walker.easydb.datatype.ELString".equals(paraType)) {
+                    }  else if (paraType.endsWith(".ELString")) {
                         String v = rs.getString(col);
                         ELString ev = (v == null) ? new ELString() : new ELString(v);
                         method.invoke(entity, new Object[]{ev});
 
-                    } else if ("walker.easydb.datatype.EBinFile".equals(paraType)) {
+                    }  else if (paraType.endsWith(".EBinFile")) {
 
                         in = rs.getBinaryStream(col);
 
@@ -155,7 +155,7 @@ class MysqlRsAssembler extends ResultAssembler {
 
                             method.invoke(entity, new Object[]{file});
                         }
-                    } else if ("walker.easydb.datatype.ETxtFile".equals(paraType)) {
+                    }  else if (paraType.endsWith(".ETxtFile")) {
 
                         in = rs.getAsciiStream(col);
 
@@ -214,7 +214,7 @@ class MysqlRsAssembler extends ResultAssembler {
 
                             method.invoke(entity, new Object[]{file});
                         }
-                    } else if ("walker.easydb.datatype.EFloat".equals(paraType)) {
+                    }  else if (paraType.endsWith(".EFloat")) {
 
                         String v = rs.getString(col);
                         EFloat ev = (v == null) ? new EFloat() : new EFloat(rs.getFloat(col));
@@ -285,37 +285,37 @@ class MysqlRsAssembler extends ResultAssembler {
                     Method method = mdExp.getMethod();
                     String paraType = mdExp.getParamType();
 
-                    if ("walker.easydb.datatype.EString".equals(paraType)) {
+                    if (paraType.endsWith("EString")) {
                         String v = rs.getString(col);
                         EString ev = (v == null) ? new EString() : new EString(v);
                         method.invoke(entity, new Object[]{ev});
 
-                    } else if ("walker.easydb.datatype.ELong".equals(paraType)) {
+                    } else if (paraType.endsWith("ELong")) {
                         String v = rs.getString(col);
                         ELong ev = (v == null) ? new ELong() : new ELong(rs.getLong(col));
                         method.invoke(entity, new Object[]{ev});
 
-                    } else if ("walker.easydb.datatype.EInteger".equals(paraType)) {
+                    } else if (paraType.endsWith("EInteger")) {
                         String v = rs.getString(col);
                         EInteger ev = (v == null) ? new EInteger() : new EInteger(rs.getInt(col));
                         method.invoke(entity, new Object[]{ev});
 
-                    } else if ("walker.easydb.datatype.EDouble".equals(paraType)) {
+                    } else if (paraType.endsWith("EDouble")) {
                         String v = rs.getString(col);
                         EDouble ev = (v == null) ? new EDouble() : new EDouble(rs.getDouble(col));
                         method.invoke(entity, new Object[]{ev});
 
-                    } else if ("walker.easydb.datatype.ETimestamp".equals(paraType)) {
+                    } else if (paraType.endsWith("ETimestamp")) {
                         Timestamp v = rs.getTimestamp(col);
                         ETimestamp ev = (v == null) ? new ETimestamp() : new ETimestamp(v.getTime());
                         method.invoke(entity, new Object[]{ev});
 
-                    } else if ("walker.easydb.datatype.ELString".equals(paraType)) {
+                    } else if (paraType.endsWith("ELString")) {
                         String v = rs.getString(col);
                         ELString ev = (v == null) ? new ELString() : new ELString(v);
                         method.invoke(entity, new Object[]{ev});
 
-                    } else if ("walker.easydb.datatype.EBinFile".equals(paraType)) {
+                    } else if (paraType.endsWith("EBinFile")) {
 
                         in = rs.getBinaryStream(col);
 
@@ -374,7 +374,7 @@ class MysqlRsAssembler extends ResultAssembler {
 
                             method.invoke(entity, new Object[]{file});
                         }
-                    } else if ("walker.easydb.datatype.ETxtFile".equals(paraType)) {
+                    } else if (paraType.endsWith("ETxtFile")) {
 
                         in = rs.getAsciiStream(col);
 
@@ -433,7 +433,7 @@ class MysqlRsAssembler extends ResultAssembler {
 
                             method.invoke(entity, new Object[]{file});
                         }
-                    } else if ("walker.easydb.datatype.EFloat".equals(paraType)) {
+                    } else if (paraType.endsWith("EFloat")) {
 
                         String v = rs.getString(col);
                         EFloat ev = (v == null) ? new EFloat() : new EFloat(rs.getFloat(col));

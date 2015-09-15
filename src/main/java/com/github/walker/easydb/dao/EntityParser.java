@@ -18,6 +18,7 @@ import com.github.walker.easydb.assistant.MappingUtil;
 import com.github.walker.easydb.datatype.EBinFile;
 import com.github.walker.easydb.datatype.ETxtFile;
 import com.github.walker.easydb.datatype.UpdateIdentifier;
+import com.github.walker.easydb.exception.BaseException;
 import com.github.walker.easydb.exception.DataAccessException;
 import com.github.walker.easydb.exception.IllegalEntityException;
 import com.github.walker.easydb.exception.IllegalParamException;
@@ -56,7 +57,7 @@ public class EntityParser {
      * @throws com.github.walker.easydb.exception.DataAccessException
      */
     public EntityParser(String dbType, Connection conn, BaseEntity entity) throws IllegalEntityException,
-            DataAccessException {
+            DataAccessException,BaseException {
 
         this.dbType = dbType;
 
@@ -91,10 +92,11 @@ public class EntityParser {
                 String fieldName = fields[i].getName();
 
                 // builds the method name, such as: "getXX"
-                methodName.append("get");
-                methodName.append(Character.toUpperCase(fieldName.charAt(0)));
-                methodName.append(fieldName.substring(1));
-
+                String firstChar = fieldName.substring(0, 1).toUpperCase();
+                if (fieldName.length() > 1 && Character.isUpperCase(fieldName.charAt(1))) {
+                    firstChar = firstChar.toLowerCase();
+                }
+                methodName.append("get").append(firstChar).append(fieldName.substring(1));
                 Method method = entity.getClass().getMethod(methodName.toString(), new Class[]{});
                 methodName.delete(0, methodName.length());
 

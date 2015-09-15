@@ -157,16 +157,17 @@ public abstract class ResultAssembler {
                 String fieldType = field.getType().getName();
 
                 // builds the method name, such as: "setXX"
-                methodName.append("set");
-                methodName.append(Character.toUpperCase(fieldName.charAt(0)));
-                methodName.append(fieldName.substring(1));
-
+                String firstChar = fieldName.substring(0, 1).toUpperCase();
+                if (fieldName.length() > 1 && Character.isUpperCase(fieldName.charAt(1))) {
+                    firstChar = firstChar.toLowerCase();
+                }
+                methodName.append("set").append(firstChar).append(fieldName.substring(1));
                 method = entity.getClass().getMethod(methodName.toString(), new Class[]{Class.forName(fieldType)});
+                methodName.delete(0, methodName.length());
 
                 // put the method object into MethodExp vector
                 indexMethodExpMap.put(new Integer(col), new SettingMethodExp(fieldType, method));
 
-                methodName.delete(0, methodName.length());
             }
 
             fieldMap.clear();

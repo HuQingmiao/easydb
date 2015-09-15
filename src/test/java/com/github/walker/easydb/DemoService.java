@@ -7,10 +7,7 @@ import com.github.walker.easydb.criterion.Exp;
 import com.github.walker.easydb.dao.EasyDao;
 import com.github.walker.easydb.dao.SqlParamMap;
 import com.github.walker.easydb.datatype.*;
-import com.github.walker.easydb.vo.Book;
-import com.github.walker.easydb.vo.BookEditor;
-import com.github.walker.easydb.vo.Editor;
-import com.github.walker.easydb.vo.EditorAndBook;
+import com.github.walker.easydb.vo.*;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -41,7 +38,6 @@ public class DemoService {
 
         dao.beginTrans(); // 发起事务
         boolean commit = false;// 事务执行成功的标识
-
         try {
             dao.deleteAll(Book.class);
 
@@ -50,7 +46,7 @@ public class DemoService {
             dao.deleteAll(BookEditor.class);
 
             // 开放此代码, 试图删除一个不存在的表, 将抛出异常且整个事务将回滚
-            // dao.deleteAll(Boek.class);
+            //dao.deleteAll(Boek.class);
             commit = true;// 标识事务成功执行
 
         } finally {
@@ -77,10 +73,10 @@ public class DemoService {
             book.setPublishTime(new ETimestamp(DateTimeUtil.getCurrentTime()));
 
             // 开放此代码, 试图把一个不存在的文件写入数据库, 将抛出异常
-            book.setTextContent(new ETxtFile("d:\\三国演义.txt"));
+            book.setTextContent(new ETxtFile("d:/三国演义.txt"));
 
             // 开放此代码, 试图向不存在与此属性对应的列写数据, EasyDB会对其忽略
-            //book.setANotExistCol(new EString("asdff"));
+            //book.setaNotExistCol(new EString("asdff"));
             dao.save(book); // 持久化实体
 
             commit = true;// 标识事务成功执行
@@ -142,18 +138,17 @@ public class DemoService {
         boolean commit = false;// 事务执行成功的标识
         try {
             // 设置要更新的项:书名,书的二进制内容,书的文本内容
-            Book newBookInfo = new Book();
-            newBookInfo.setTitle(new EString("三国演义(第二版)"));
-            newBookInfo.setTextContent(new ETxtFile("d:\\三国演义.txt"));
-            newBookInfo.setBlobContent(new EBinFile());
+            Book newBook = new Book();
+            newBook.setTitle(new EString("三国演义(第二版)"));
+            newBook.setTextContent(new ETxtFile("d:/三国演义.txt"));
+            newBook.setBlobContent(new EBinFile());
 
             // 如果要将大字段列置空,则..
-            // newBook.setBlobContent(new EBinFile());//以二进制方式更新内容
-            // newBook.setTextContent(new ETxtFile());//以文本方式更新内容
+            //newBook.setTextContent(new ETxtFile());//以文本方式更新内容
 
             //必须指定主键, 它是更新的依据
-            newBookInfo.setBookId(new ELong(1));
-            dao.update(newBookInfo);
+            newBook.setBookId(new ELong(1));
+            dao.update(newBook);
 
             commit = true;// 标识事务成功执行
         } finally {
@@ -278,35 +273,6 @@ public class DemoService {
         }
     }
 
-
-    /**
-     * 以SQL的方式更新书的信息
-     *
-     * @throws Exception
-     */
-    public void executeSqlToUpdateBooks() throws Exception {
-        log.info("\nexecuteSqlToUpdateBooks()>>>>>>>>>>>>>>>>>>>>");
-
-        dao.beginTrans(); // 发起事务
-        boolean commit = false;// 事务执行成功的标识
-        try {
-
-            //Oracle版本适应
-            //String sql = " UPDATE BOOK SET TITLE = '永远的'||TITLE WHERE TITLE LIKE ? ";
-
-            //mySql版本适应
-            String sql = " UPDATE BOOK SET TITLE = CONCAT('永远的',TITLE) WHERE TITLE LIKE ? ";
-
-            SqlParamMap pMap = new SqlParamMap();
-            pMap.put(1, "UNIX%");
-
-            dao.exec(sql, pMap);
-            commit = true;// 标识事务成功执行
-
-        } finally {
-            dao.endTrans(commit);// 结束事务
-        }
-    }
 
     /**
      * 分别以两种SQL的方式添加两本书;
@@ -447,39 +413,6 @@ public class DemoService {
 
 
     /**
-     * 演示嵌套事务
-     *
-     * @throws Exception
-     */
-    public void nestedTransaction() throws Exception {
-        log.info("\nnestedTransaction()>>>>>>>>>>>>>>>>>>>>");
-
-        dao.beginTrans(); // 发起事务
-        boolean commit = false;// 事务执行成功的标识
-        try {
-
-            this.addOneBook();       //第一个子事务
-
-            //this.addMultiBooks();    //第二个子事务
-
-            this.executeSqlToAddBook();
-
-            this.executeSqlToUpdateBooks();
-
-//			 //开放此代码，整个事务包括所有子事务将回滚
-//			 if (true) {
-//			 	throw new Exception(">>>>>throwed by nestedTransaction() ");
-//			 }
-
-            this.executeSqlToAddEditors();
-
-            commit = true;// 标识事务成功执行
-        } finally {
-            dao.endTrans(commit);// 结束事务
-        }
-    }
-
-    /**
      * 找出某位作者的资料及其所编写的书
      *
      * @throws Exception
@@ -615,7 +548,6 @@ public class DemoService {
             log.info(buff);
 
             commit = true;// 标识事务成功执行
-
         } finally {
             dao.endTrans(commit);// 结束事务
         }
@@ -655,37 +587,64 @@ public class DemoService {
     }
 
 
-    public void prepareTest() throws Exception {
+    /**
+     * 演示嵌套事务
+     *
+     * @throws Exception
+     */
+    public void nestedTransaction() throws Exception {
+        log.info("\nnestedTransaction()>>>>>>>>>>>>>>>>>>>>");
 
-        File file1 = new File("d:\\unix.txt");
-        File file2 = new File("d:\\unix.chm");
-        File file3 = new File("d:\\三国演义.txt");
+        dao.beginTrans(); // 发起事务
+        boolean commit = false;// 事务执行成功的标识
+        try {
 
+            this.addOneBook();       //第一个子事务
+
+            //this.addMultiBooks();    //第二个子事务
+
+            this.executeSqlToAddBook();
+
+
+//			 //开放此代码，整个事务包括所有子事务将回滚
+//			 if (true) {
+//			 	throw new Exception(">>>>>throwed by nestedTransaction() ");
+//			 }
+
+            this.executeSqlToAddEditors();
+
+            commit = true;// 标识事务成功执行
+        } finally {
+            dao.endTrans(commit);// 结束事务
+        }
+    }
+
+    public void doBeforeTest() throws Exception {
+
+        //创建两个文件
+        File file1 = new File("d:/unix.txt");
+        File file3 = new File("d:/三国演义.txt");
         FileOutputStream out;
         try {
             out = new FileOutputStream(file1);
-            out.write("文本文本文本文本".getBytes());
-            out.flush();
-            out.close();
-
-            out = new FileOutputStream(file2);
-            out.write("书书书".getBytes());
+            out.write("the history of unix ....".getBytes());
             out.flush();
             out.close();
 
             out = new FileOutputStream(file3);
-            out.write("三国三国三国三国".getBytes());
+            out.write("三国啊，孔明兄啊 ".getBytes());
             out.flush();
             out.close();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            log.error("", e);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("", e);
         }
     }
 
-    public void endTest() throws Exception {
+
+    public void doAfterTest() throws Exception {
 
         File file1 = new File("d:\\unix.txt");
         File file2 = new File("d:\\unix.chm");
@@ -695,5 +654,6 @@ public class DemoService {
         file2.delete();
         file3.delete();
     }
+
 }
 

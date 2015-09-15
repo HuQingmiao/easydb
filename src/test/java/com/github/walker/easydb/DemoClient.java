@@ -20,8 +20,7 @@ public class DemoClient {
 		DemoService app = new DemoService();
 
 		try {
-			app.prepareTest();
-
+			app.doBeforeTest();
 			app.clearTestData();
 
 			app.showAllBooks();
@@ -34,6 +33,7 @@ public class DemoClient {
 
 			app.updateOneBook();
 			app.showAllBooks();
+
 
 			app.updateMulitBooks();
 			app.showAllBooks();
@@ -48,10 +48,8 @@ public class DemoClient {
 
 			app.getEditorAndBookByPager();
 
-			app.getOneBook();
-
 			app.clearTestData();
-			app.endTest();
+			app.doAfterTest();
 
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

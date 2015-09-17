@@ -601,7 +601,7 @@ public class DemoService {
 
             this.addOneBook();       //第一个子事务
 
-            //this.addMultiBooks();    //第二个子事务
+            this.addMultiBooks();    //第二个子事务
 
             this.executeSqlToAddBook();
 
@@ -612,6 +612,8 @@ public class DemoService {
 //			 }
 
             this.executeSqlToAddEditors();
+
+            this.executeSqlToAddBookEditor();
 
             commit = true;// 标识事务成功执行
         } finally {

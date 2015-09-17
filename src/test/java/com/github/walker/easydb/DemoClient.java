@@ -44,12 +44,13 @@ public class DemoClient {
 			app.deleteBookByCriteria();
 			app.showAllBooks();
 
+			app.clearTestData();
 			app.nestedTransaction();
 
-			app.getEditorAndBookByPager();
-
-			app.clearTestData();
-			app.doAfterTest();
+//			app.getEditorAndBookByPager();
+//
+//			app.clearTestData();
+//			app.doAfterTest();
 
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

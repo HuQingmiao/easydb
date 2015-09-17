@@ -4,7 +4,7 @@ import com.github.walker.easydb.dao.BaseEntity;
 import com.github.walker.easydb.exception.IllegalEntityException;
 
 /**
- * Common util class.
+ * mapping util class.
  *
  * @author HuQingmiao
  */

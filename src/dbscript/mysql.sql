@@ -1,5 +1,5 @@
-DROP TABLE if EXISTS BOOK ;
-CREATE TABLE BOOK
+DROP TABLE if EXISTS book ;
+CREATE TABLE book
 (
  book_id       	BIGINT     UNSIGNED NOT NULL,
  title     	VARCHAR(255)         ,
@@ -7,25 +7,32 @@ CREATE TABLE BOOK
  publish_time	DATE,
  blob_content   LONGBLOB,
  text_content   LONGTEXT,
- PRIMARY KEY(BOOK_ID)
+ PRIMARY KEY(book_id)
 ) ;
 
 
-DROP TABLE if EXISTS BOOK_EDITOR ;
+DROP TABLE if EXISTS book_editor ;
 CREATE TABLE BOOK_EDITOR( 
   book_id BIGINT    UNSIGNED NOT NULL,
   editor_id BIGINT  UNSIGNED NOT NULL,
-  PRIMARY KEY(BOOK_ID, EDITOR_ID)
+  PRIMARY KEY(book_id, editor_id)
 ) ;
 
 
-DROP TABLE  if EXISTS EDITOR ;
-CREATE TABLE EDITOR (	  
+DROP TABLE  if EXISTS editor ;
+CREATE TABLE EDITOR (
   editor_id     BIGINT UNSIGNED NOT NULL   ,
   name    	VARCHAR(80)     NOT NULL   ,
   sex		SET('m','f') ,
-  PRIMARY KEY(EDITOR_ID)
+  PRIMARY KEY(editor_id)
 );
 
 
 
+DROP TABLE  if EXISTS editor ;
+CREATE TABLE EDITOR (
+  editor_id     BIGINT UNSIGNED NOT NULL   ,
+  name    	VARCHAR(80)     NOT NULL   ,
+  sex		SET('m','f') ,
+  PRIMARY KEY(editor_id)
+);

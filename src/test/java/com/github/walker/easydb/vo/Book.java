@@ -20,7 +20,7 @@ public class Book extends BaseEntity {
 
     private EString title;
 
-    private EFloat cost;
+    private EFloat price;
 
     private ETimestamp publishTime;
 
@@ -35,13 +35,6 @@ public class Book extends BaseEntity {
         return new String[]{"bookId"};
     }
 
-    public EBinFile getBlobContent() {
-        return blobContent;
-    }
-
-    public void setBlobContent(EBinFile blobContent) {
-        this.blobContent = blobContent;
-    }
 
     public ELong getBookId() {
         return bookId;
@@ -51,8 +44,12 @@ public class Book extends BaseEntity {
         this.bookId = bookId;
     }
 
-    public EFloat getCost() {
-        return cost;
+    public EFloat getPrice() {
+        return price;
+    }
+
+    public void setPrice(EFloat price) {
+        this.price = price;
     }
 
     public EString getTitle() {
@@ -63,16 +60,20 @@ public class Book extends BaseEntity {
         this.title = title;
     }
 
-    public void setCost(EFloat cost) {
-        this.cost = cost;
-    }
-
     public ETimestamp getPublishTime() {
         return publishTime;
     }
 
     public void setPublishTime(ETimestamp publishTime) {
         this.publishTime = publishTime;
+    }
+
+    public EBinFile getBlobContent() {
+        return blobContent;
+    }
+
+    public void setBlobContent(EBinFile blobContent) {
+        this.blobContent = blobContent;
     }
 
     public ETxtFile getTextContent() {

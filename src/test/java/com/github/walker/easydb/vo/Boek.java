@@ -20,7 +20,7 @@ public class Boek extends BaseEntity {
 
     private EString title;
 
-    private EFloat cost;
+    private EFloat price;
 
     private ETimestamp publishTime;
 
@@ -48,12 +48,13 @@ public class Boek extends BaseEntity {
         this.bookId = bookId;
     }
 
-    public EFloat getCost() {
-        return cost;
+
+    public EFloat getPrice() {
+        return price;
     }
 
-    public void setCost(EFloat cost) {
-        this.cost = cost;
+    public void setPrice(EFloat price) {
+        this.price = price;
     }
 
     public ETimestamp getPublishTime() {

@@ -3,7 +3,7 @@ CREATE TABLE BOOK
 (
  BOOK_ID       	NUMBER(10)	     NOT NULL,  
  TITLE     	VARCHAR2(255)         , 
- COST      	NUMBER(10,2)          , 
+ PRICE      	NUMBER(10,2)          ,
  PUBLISH_TIME	DATE,			
  BLOB_CONTENT   BLOB,
  TEXT_CONTENT   CLOB,

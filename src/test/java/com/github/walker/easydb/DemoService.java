@@ -69,7 +69,7 @@ public class DemoService {
             book = new Book();
             book.setBookId(new ELong(1));
             book.setTitle(new EString("Unix网络编程"));
-            book.setCost(new EFloat(30.0f));
+            book.setPrice(new EFloat(30.0f));
             book.setPublishTime(new ETimestamp(DateTimeUtil.getCurrentTime()));
 
             // 开放此代码, 试图把一个不存在的文件写入数据库, 将抛出异常
@@ -101,7 +101,7 @@ public class DemoService {
             BookArray[0] = new Book();
             BookArray[0].setBookId(new ELong(101));
             BookArray[0].setTitle(new EString("UNIX-上册"));
-            BookArray[0].setCost(new EFloat(100.0f));
+            BookArray[0].setPrice(new EFloat(100.0f));
 
             // 开放此代码，将抛出异常：批量操作时，不允许对大字段列进行批量写入
             // BookArray[0].setBlobContent(new EBinFile("d:\\unix.chm"));
@@ -111,12 +111,12 @@ public class DemoService {
             BookArray[1].setTitle(new EString("UNIX-中册"));
 
             // 屏蔽此代码，将抛出异常：参数Entity数组中列值存放位置必须一致！
-            BookArray[1].setCost(new EFloat(52.0f));
+            BookArray[1].setPrice(new EFloat(52.0f));
 
             BookArray[2] = new Book();
             BookArray[2].setBookId(new ELong(103));
             BookArray[2].setTitle(new EString("UNIX-下册"));
-            BookArray[2].setCost(new EFloat(35.0f));
+            BookArray[2].setPrice(new EFloat(35.0f));
 
             dao.save(BookArray); // 持久化实体
 
@@ -168,7 +168,7 @@ public class DemoService {
         dao.beginTrans(); // 发起事务
         boolean commit = false;// 事务执行成功的标识
         try {
-            String sql = " select book_id,title,cost,publish_time from book ";
+            String sql = " select book_id,title,price,publish_time from book ";
             ArrayList list = dao.get(sql, Book.class);
 
             Book[] books = new Book[list.size()];
@@ -177,7 +177,7 @@ public class DemoService {
 
                 //设置新的出版时间和价格
                 b.setPublishTime(new ETimestamp(DateTimeUtil.parse("2008-01", "yyyy-MM")));
-                b.setCost(new EFloat(b.getCost().floatValue() - 10.0f));
+                b.setPrice(new EFloat(b.getPrice().floatValue() - 10.0f));
                 books[i] = b;
             }
             list.clear();
@@ -286,14 +286,14 @@ public class DemoService {
         boolean commit = false;// 事务执行成功的标识
         try {
             // 方式1：可执行SQL
-            String sql = " INSERT INTO BOOK (BOOK_ID,TITLE,COST) "
+            String sql = " INSERT INTO BOOK (book_id,title,price) "
                     + " VALUES (3, '鲁宾逊漂流记', 20.0) ";
 
             dao.exec(sql);
 
 
             // 方式2：参数化SQL
-            sql = " INSERT INTO BOOK (BOOK_ID,TITLE,COST,PUBLISH_TIME) VALUES (?,?,?,?) ";
+            sql = " INSERT INTO BOOK (book_id,title,price,publish_time) VALUES (?,?,?,?) ";
             SqlParamMap pMap = new SqlParamMap();
             pMap.put(1, "4");
             pMap.put(2, "资本论");
@@ -480,13 +480,13 @@ public class DemoService {
             StringBuffer sql = new StringBuffer();
             // sql.append(" SELECT * FROM (");
 
-            sql.append(" SELECT A.NAME EDITOR_NAME, A.SEX EDITOR_SEX, ");
-            sql.append(" C.TITLE, C.COST, C.BLOB_CONTENT, C.TEXT_CONTENT ");
-            sql.append(" FROM  EDITOR A, BOOK_EDITOR B, BOOK C ");
-            sql.append(" WHERE A.EDITOR_ID = B.EDITOR_ID ");
-            sql.append("   AND  B.BOOK_ID =  C.BOOK_ID ");
+            sql.append(" SELECT a.name editor_name, a.sex editor_sex, ");
+            sql.append("        c.title, c.cost, c.blob_content, c.text_content ");
+            sql.append(" FROM  editor a, book_editor b, book c ");
+            sql.append(" WHERE a.editor_id = b.editor_id ");
+            sql.append("   AND  b.book_id =  c.book_id ");
             // sql.append(" AND A.NAME like 'Richard%' ");
-            sql.append(" ORDER BY C.COST ");
+            sql.append(" ORDER BY c.cost ");
 
             @SuppressWarnings("rawtypes")
             ArrayList list = dao
@@ -531,7 +531,7 @@ public class DemoService {
         boolean commit = false;// 事务执行成功的标识
 
         try {
-            String sql = " select book_id,title,cost,publish_Time from BOOK order by book_id ";
+            String sql = " SELECT book_id,title,price,publish_Time FROM book ORDER BY book_id ";
             ArrayList list = dao.get(sql, Book.class);
 
             // 打印出查询结果
@@ -540,7 +540,7 @@ public class DemoService {
                 Book b = (Book) list.get(i);
                 buff.append(b.getBookId() + "\t");
                 buff.append(b.getTitle() + "\t");
-                buff.append(b.getCost() + "\t");
+                buff.append(b.getPrice() + "\t");
                 //buff.append(b.getBlobContent() + "\t");
                 //buff.append(b.getTextContent()+"\t");
                 buff.append(b.getPublishTime() + "\n");
@@ -573,7 +573,7 @@ public class DemoService {
             if (book != null) {
                 buff.append(book.getBookId() + "\t");
                 buff.append(book.getTitle() + "\t");
-                buff.append(book.getCost() + "\t");
+                buff.append(book.getPrice() + "\t");
                 //buff.append(book.getBlobContent() + "\t");
                 //buff.append(book.getTextContent() + "\t");
                 buff.append(book.getPublishTime() + "\n");

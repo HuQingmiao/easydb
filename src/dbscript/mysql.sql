@@ -12,7 +12,7 @@ CREATE TABLE book
 
 
 DROP TABLE if EXISTS book_editor ;
-CREATE TABLE BOOK_EDITOR( 
+CREATE TABLE book_editor(
   book_id BIGINT    UNSIGNED NOT NULL,
   editor_id BIGINT  UNSIGNED NOT NULL,
   PRIMARY KEY(book_id, editor_id)
@@ -20,7 +20,7 @@ CREATE TABLE BOOK_EDITOR(
 
 
 DROP TABLE  if EXISTS editor ;
-CREATE TABLE EDITOR (
+CREATE TABLE editor (
   editor_id     BIGINT UNSIGNED NOT NULL   ,
   name    	VARCHAR(80)     NOT NULL   ,
   sex		SET('m','f') ,

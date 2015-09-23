@@ -27,12 +27,3 @@ CREATE TABLE EDITOR (
   PRIMARY KEY(editor_id)
 );
 
-
-
-DROP TABLE  if EXISTS editor ;
-CREATE TABLE EDITOR (
-  editor_id     BIGINT UNSIGNED NOT NULL   ,
-  name    	VARCHAR(80)     NOT NULL   ,
-  sex		SET('m','f') ,
-  PRIMARY KEY(editor_id)
-);

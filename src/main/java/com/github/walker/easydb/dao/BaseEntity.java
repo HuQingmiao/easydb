@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -312,7 +314,6 @@ public abstract class BaseEntity implements Serializable {
         } catch (InvocationTargetException e) {
             log.error("", e);
             throw new IllegalEntityException(e.getMessage());
-
         }
     }
 
@@ -321,4 +322,51 @@ public abstract class BaseEntity implements Serializable {
         return this.fieldNameTypeMap;
     }
 
+
+    @Override
+    public int hashCode() {
+        int hashCode = 1;
+        Map<String, Object> keyObjectMap = new HashMap<String, Object>();
+        try {
+            for (Iterator<String> it = fieldNameTypeMap.keySet().iterator(); it.hasNext(); ) {
+                String filedName = it.next();
+                Object obj = this.get(filedName);
+                hashCode = 31 * hashCode + (obj == null ? 0 : obj.hashCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        keyObjectMap.clear();
+        return hashCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof BaseEntity)) {
+            return false;
+        }
+
+        BaseEntity vo2 = ((BaseEntity) o);
+        HashMap<String, Class<?>> ftMap2 = vo2.fieldNameTypeMap();
+        if (fieldNameTypeMap.size() != ftMap2.size()) {
+            return false;
+        }
+
+        try {
+            for (Iterator<String> it = fieldNameTypeMap.keySet().iterator(); it.hasNext(); ) {
+                String filedName = it.next();
+                Object obj1 = this.get(filedName);
+                Object obj2 = vo2.get(filedName);
+                if (!(obj1 == null ? obj2 == null : obj1.equals(obj2))) {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }

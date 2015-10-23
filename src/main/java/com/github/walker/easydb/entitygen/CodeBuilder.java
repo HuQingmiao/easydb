@@ -36,7 +36,7 @@ public class CodeBuilder {
      * @return
      */
     protected String buildCodeStr() throws Exception {
-
+        System.out.println("\n>>>>>>>为表"+tableName+" 生成实体：");
         StringBuffer buff = new StringBuffer("\n\n");
 
         buff.append("import com.github.walker.easydb.dao.BaseEntity; \n");

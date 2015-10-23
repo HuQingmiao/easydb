@@ -1,4 +1,4 @@
-﻿## 联系我
+## 联系我
 > 个人博客：[http://my.oschina.net/HuQingmiao](http://my.oschina.net/HuQingmiao)；
 > QQ：443770574
 
@@ -10,12 +10,12 @@
 &nbsp;&nbsp; 随着myBatis的出现和发展，运用myBatis可以设计出更为简洁、扩展性更好的DAO层。 因此，我认为easydb的使命结束了。
 
 
-##使用本O/R Mapping，请遵循以下步骤：
+## 使用本O/R Mapping，请遵循以下步骤：
 1. 先下载easydb-3.1.0.zip(链接: http://pan.baidu.com/s/1sjMgR8p 密码: zbpd)，然后阅读解压包下的《Easydb用户手册》。
 2. 用IntelliJ IDEA 或 Eclipse打开示例工程easydb-demo，配置好数据源，就可试着运行了。 我相信，你只需要30分钟，就能掌握easydb。
 
 
-##参与本开源项目开发，请知道：
+## 参与本开源项目开发，请知道：
 * 编译环境
      * Windows or Linux
      * Java 6+

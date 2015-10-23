@@ -147,7 +147,7 @@ class MetaMapping {
             case Types.VARCHAR:
                 return EString.class;
             case Types.LONGVARCHAR:
-                return EString.class;
+                return ETxtFile.class;
 
             case Types.DATE:
                 return ETimestamp.class;

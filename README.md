@@ -15,7 +15,7 @@
 2. 用IntelliJ IDEA 或 Eclipse打开示例工程easydb-demo，配置好数据源，就可试着运行了。 我相信，你只需要30分钟，就能掌握easydb。
 
 
-## 参与本开源项目开发，请知道：
+## 参与本项目开发，请知道：
 * 编译环境
      * Windows or Linux
      * Java 6+

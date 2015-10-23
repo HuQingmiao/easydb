@@ -13,7 +13,7 @@ import java.util.*;
  *
  * @author HuQingmiao
  */
-class CodeBuilder {
+public class CodeBuilder {
 
     protected String tableName;
 
@@ -24,7 +24,7 @@ class CodeBuilder {
      *
      * @param tableName
      */
-    protected CodeBuilder(String tableName) {
+    public CodeBuilder(String tableName) {
         this.tableName = tableName.trim().toLowerCase();
         this.colNameMetaMap = new MetaMapping(tableName).getColNameMetaMap();
     }

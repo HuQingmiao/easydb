@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import com.github.walker.easydb.assistant.LogFactory;
 import com.github.walker.easydb.exception.BaseException;
 import com.github.walker.easydb.exception.IllegalEntityException;
+import org.json.JSONObject;
 
 /**
  * 抽象实体类， 所有实体类的基类， 其子类与数据库的元数据形成映射。 <br>
@@ -338,6 +339,22 @@ public abstract class BaseEntity implements Serializable {
         }
         keyObjectMap.clear();
         return hashCode;
+    }
+
+    @Override
+    public String toString() {
+        Map<String, Object> keyObjectMap = new HashMap<String, Object>();
+        try {
+            for (Iterator<String> it = fieldNameTypeMap.keySet().iterator(); it.hasNext(); ) {
+                String filedName = it.next();
+                keyObjectMap.put(filedName, this.get(filedName));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String str = JSONObject.valueToString(keyObjectMap);
+        keyObjectMap.clear();
+        return str;
     }
 
     @Override

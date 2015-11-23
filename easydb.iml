@@ -13,6 +13,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.8" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20140107" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.30" level="project" />
     <orderEntry type="library" name="Maven: com.oracle:ojdbc14:10.2.0.3.0" level="project" />
   </component>

@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 import com.github.walker.easydb.assistant.LogFactory;
 import com.github.walker.easydb.exception.BaseException;
 import com.github.walker.easydb.exception.IllegalEntityException;
-import org.json.JSONObject;
 
 /**
  * 抽象实体类， 所有实体类的基类， 其子类与数据库的元数据形成映射。 <br>

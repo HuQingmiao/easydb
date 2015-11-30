@@ -341,21 +341,6 @@ public abstract class BaseEntity implements Serializable {
         return hashCode;
     }
 
-    @Override
-    public String toString() {
-        Map<String, Object> keyObjectMap = new HashMap<String, Object>();
-        try {
-            for (Iterator<String> it = fieldNameTypeMap.keySet().iterator(); it.hasNext(); ) {
-                String filedName = it.next();
-                keyObjectMap.put(filedName, this.get(filedName));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String str = JSONObject.valueToString(keyObjectMap);
-        keyObjectMap.clear();
-        return str;
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -257,9 +257,9 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 	 *
 	 * @param originSql
 	 *            the common business logic sql
-	 * @param start
+	 * @param startPos
 	 *            starting position in searching records
-	 * @param end
+	 * @param endPos
 	 *            end position of in searching records
 	 *
 	 * @return
@@ -296,8 +296,16 @@ public class SqlserverSqlConstructor extends SqlConstructor {
 
 		final String orderBy = " ORDER BY ";
 
+		originSql = originSql.trim();
+
+		//替换制表符
+		originSql = originSql.replaceAll("\t", " ");
+
+		//合并空格符
+		originSql = originSql.replaceAll("\\s{1,}", " ");
+
 		// 去掉ORDER BY 子句
-		int orderPosi = originSql.indexOf(orderBy);
+		int orderPosi = originSql.toUpperCase().indexOf(orderBy);
 		if (orderPosi > 0) {
 			originSql = originSql.substring(0, orderPosi);
 		}

@@ -255,8 +255,8 @@ public class OracleSqlConstructor extends SqlConstructor {
      * Builds the pager sql by decorating the common business logic sql.
      *
      * @param originSql the common business logic sql
-     * @param start     starting position in searching records
-     * @param end       end position of in searching records
+     * @param startPos     starting position in searching records
+     * @param endPos       end position of in searching records
      * @return
      */
     public String buildPageSql(String originSql, int startPos, int endPos) {
@@ -265,6 +265,13 @@ public class OracleSqlConstructor extends SqlConstructor {
         final String from = " FROM ";
 
         originSql = originSql.trim();
+
+        //替换制表符
+        originSql = originSql.replaceAll("\t", " ");
+
+        //合并空格符
+        originSql = originSql.replaceAll("\\s{1,}", " ");
+
         int selectPosi = this.indexIgloreCase(originSql, select, 0, originSql.length());
 
         int fromPosi = this.indexIgloreCase(originSql, from, 0, originSql.length());
@@ -345,8 +352,17 @@ public class OracleSqlConstructor extends SqlConstructor {
 
         final String orderBy = " ORDER BY ";
 
+        originSql = originSql.trim();
+
+        //替换制表符
+        originSql = originSql.replaceAll("\t", " ");
+
+        //合并空格符
+        originSql = originSql.replaceAll("\\s{1,}", " ");
+
+
         // 去掉ORDER BY 子句
-        int orderPosi = originSql.indexOf(orderBy);
+        int orderPosi = originSql.toUpperCase().indexOf(orderBy);
         if (orderPosi > 0) {
             originSql = originSql.substring(0, orderPosi);
         }
@@ -375,7 +391,7 @@ public class OracleSqlConstructor extends SqlConstructor {
     /**
      * 去掉左右括号中间的字符
      *
-     * @param str 左右括号必须成对出现的字符串
+     * @param colstr 左右括号必须成对出现的字符串
      */
     private String trimBracket(String colstr) {
 

@@ -12,15 +12,14 @@
 
 ## 使用本O/R Mapping，请遵循以下步骤：
 1. 先下载easydb-3.x.x.zip(链接: http://pan.baidu.com/s/1jHc8jky 密码: zng2)，然后阅读解压包下的《Easydb用户手册》。
-2. 用IntelliJ IDEA 或 Eclipse打开示例工程easydb-demo，配置好数据源，就可试着运行了。 我相信，你只需要30分钟，就能掌握easydb。
+2. 在mysql上依次执行doc/dbscript目录下的脚本。
+3. 用IntelliJ IDEA 或 Eclipse打开示例工程easydb-demo，配置好数据源，就可试着运行了。 我相信，你只需要30分钟，就能掌握easydb。
 
 
-## 参与本项目开发，请知道：
-* 编译环境
+## 开发&编译
      * Windows or Linux
-     * Java 6+
-     * Maven 3.0.5+ (for building)
-
-* 开发工具
+     * Java 7
+     * Maven 3.0.5+
      * IntelliJ IDEA / Eclipse
+
 

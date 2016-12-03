@@ -161,7 +161,7 @@ class EasyDBConnPool extends ConnectionPool {
 
         int size = freeConnQueue.size();
         while (size > resize) {
-            Connection c = (Connection) freeConnQueue.get(size - 1);
+            Connection c = freeConnQueue.get(size - 1);
             if (c != null && !c.isClosed()) {
                 c.close();
             }
@@ -176,7 +176,7 @@ class EasyDBConnPool extends ConnectionPool {
     private void freeAll() throws SQLException {
 
         for (int i = 0; i < freeConnQueue.size(); i++) {
-            Connection c = (Connection) freeConnQueue.get(i);
+            Connection c = freeConnQueue.get(i);
             if (c != null && !c.isClosed()) {
                 c.close();
             }

@@ -21,8 +21,8 @@ public abstract class ConnectionPool {
 
     protected static Logger log = LogFactory.getLogger(ConnectionPool.class);
 
-    private static HashMap<String, ConnectionPool> instances = new HashMap<String, ConnectionPool>(3); // instance
-    // pool
+    // instance pool
+    private static HashMap<String, ConnectionPool> instances = new HashMap<String, ConnectionPool>(3);
 
     /**
      * Gets the default instance of this class. This method decides which
@@ -38,7 +38,6 @@ public abstract class ConnectionPool {
 
         // 默认的JNDI键名采用"jndi.name"
         return getInstance("jndi.name");
-
     }
 
     /**
@@ -60,7 +59,7 @@ public abstract class ConnectionPool {
         // 如果配置文件中为jndi.name设置了值, 则采用web服务器的连接池
         if (jndiName != null && !"".equals(jndiName.trim())) {
             if (instances.containsKey(jndiName)) {
-                return (ConnectionPool) instances.get(jndiName);
+                return instances.get(jndiName);
             } else {
                 ConnectionPool instance = new ServerConnPool(jndiKey);
                 instances.put(jndiName, instance);
@@ -70,7 +69,7 @@ public abstract class ConnectionPool {
             // 采用自实现的连接池
         } else {
             if (instances.containsKey("NO_JNDI")) {
-                return (ConnectionPool) instances.get("NO_JNDI");
+                return instances.get("NO_JNDI");
 
             } else {
                 String driverStr = EasyConfig.getProperty("driverStr");

@@ -33,7 +33,8 @@ public class AuxiliaryMgr {
         for (int i = 0; i < files.length; i++) {
             files[i].delete();
         }
-        log.info("Deleted All files in the base file dircotry. ");
+
+        log.info("Deleted all files in the base file directory. ");
     }
 
     /**
@@ -61,7 +62,7 @@ public class AuxiliaryMgr {
                 files[i].delete();
             }
         }
-        log.info("Deleted All files in the base file dircotry. ");
+        log.info("Deleted all files in the base file directory. ");
     }
 
     public static void main(String[] args) {

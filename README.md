@@ -4,18 +4,20 @@
 &nbsp;&nbsp; Easydb，其思路基于我2005年6月的想法，但至2007年4月才正式完成版本1.0。 在那个年代，很多项目中堆积着繁锁凌乱的JDBC代码，而EJB学习成本高、性能低下，Hiberante崭露新角，并不易于调试和维护。Easydb正是在那样的背景下产生的，其目标在于提高应用系统的开发效率，减少JAVA程序员的工作量，并且确保运用它编写出来的代码是简洁易懂的。<p/>
 &nbsp;&nbsp; 随着myBatis的出现和发展，运用myBatis可以设计出更为简洁、扩展性更好的DAO层。 因此，我认为easydb的使命结束了。
 
-### 联系我
-> 个人博客：[http://my.oschina.net/HuQingmiao](http://my.oschina.net/HuQingmiao)；
-> QQ：443770574
 
 ### 使用步骤
 1. 先下载easydb-3.x.x.zip(链接: http://pan.baidu.com/s/1jHc8jky 密码: zng2)，然后阅读解压包下的《Easydb用户手册》。
 2. 在mysql上依次执行doc/dbscript目录下的脚本。
 3. 用IntelliJ IDEA 或 Eclipse打开示例工程easydb-demo，配置好数据源，就可试着运行了。 我相信，你只需要30分钟，就能掌握easydb。
 
+
 ### 开发环境
      * Java 7
      * Maven 3.2.5+
      * IntelliJ IDEA / Eclipse
 
+	 
+### 联系我
+> 个人博客：[http://my.oschina.net/HuQingmiao](http://my.oschina.net/HuQingmiao)；
+> QQ：443770574
 
